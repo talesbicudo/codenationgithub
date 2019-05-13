@@ -1,5 +1,9 @@
+import { client } from '../api';
+import {ApolloClient} from 'apollo-client';
+
 describe("API testing", () => {
-    it('loads enviroment variable', () => {
-        expect(process.env.REACT_APP_API_ENDPOINT).toBe("https://api.github.com/graphql");
+    it('Creates a valide Apollo Client', () => {
+        expect(client).toBeInstanceOf(ApolloClient);
     })
+
 })
