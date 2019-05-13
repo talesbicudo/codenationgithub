@@ -1,47 +1,68 @@
-# Projeto GitHub
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Descrição
+## Available Scripts
 
-Neste projeto iremos construir uma aplicação semelhante ao GitHub.
-Iremos ter uma linha do tempo do GitHub que cria um histórico visual de uma atividade dos usuários do GitHub. Neste projeto iremos utilizar um username e produzir uma timeline contento cada repositório e situando os nomes dos repositórios, a data que eles foram criados e suas descrições.
-**Obs:** Somente repositórios públicos devem ser mostrados.
+In the project directory, you can run:
 
-## Objetivos
+### `npm start`
 
-- O usuário pode digitar um nome de usuário do GitHub.
-- O usuário pode clicar em um botão para criar e mostrar o repositório do usuário com sua timeline.
-- O usuário pode ver um mensagem de erro se o username do GitHub não for válido.
-- O usuário pode ver um resumo do número de repos registrados pelo ano em que foram criados
-- O usuário pode buscar repositórios/projetos por tipo de linguagem de programação
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Recursos
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
-O GitHub oferece duas API’s e você pode utilizar para ter acesso aos dados de repositórios, você também pode utilizar um package do NPM para acessar a API do GitHub.
-Documentação:
+### `npm test`
 
-- [GitHub REST API](https://developer.github.com/v3/)
-- [GitHub GraphQL API V4](https://developer.github.com/v4/)
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Critérios de Aceitação
+### `npm run build`
 
-- Aplicativo inicia com npm install e npm start (yarn também é válido).
-- Aplicativo possuí um README que detalha o App.
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-**Obs:** Somente a pasta "src/" será submetida para Code Review.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-### Gerenciamento de Estado
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-- O App é gerenciado pelo Redux 
-- A maioria dos estados são gerenciados pela Redux Store.
-- As atualizações são disparadas pelo dispatch.
-- Os reducers estão definidos de forma correta
+### `npm run eject`
 
-### Desenvolvimento extra da Aplicação
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-- Os componentes estão corretamente definidos.
-- Uso correto do Lifecycle na aplicação.
-- As funções estão escritas de forma correta e de fácil entendimento.
-- Não há código repetido.
-- Uso de testes na aplicação com coverage de 80% no mínimo.
-- Utilização de bibliotecas, como: GraphQL, Relay, Apollo e Saga.
-- Utilização de Styled Components ou Emotion.
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
