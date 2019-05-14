@@ -1,4 +1,4 @@
-import { client } from '../api';
+import { client } from './client';
 import gql  from 'graphql-tag';
 import { ApolloClient } from 'apollo-client';
 
