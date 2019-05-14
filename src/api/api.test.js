@@ -18,7 +18,6 @@ describe("API testing", () => {
             .then(data => data)
             .catch(error => error)
 
-            console.log(data)
         expect(data).not.toBeInstanceOf(Error);
     })
 
