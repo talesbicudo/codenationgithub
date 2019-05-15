@@ -9,5 +9,6 @@ const cache = new InMemoryCache();
 export const createClient = authToken => new ApolloClient(
     {
         cache,
-        link: createHttpLink({ uri: ENDPOINT_URI, headers: { authorization: authToken } })
+        link:
+            createHttpLink({ uri: ENDPOINT_URI, headers: { authorization: authToken } })
     });
