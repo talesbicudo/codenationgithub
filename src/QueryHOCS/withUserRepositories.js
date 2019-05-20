@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import Loader from '../components/Loader';
 import gql from 'graphql-tag';
+import NetworkStatus from './NetworkStatus';
 
 const query = gql`
 query ($login: String! $repositoriesPerPage: Int! $cursor: String) {
@@ -23,10 +24,11 @@ query ($login: String! $repositoriesPerPage: Int! $cursor: String) {
 const withUserRepositories = (WrappedComponent) => ({ login, repositoriesPerPage }) =>
 
     <Query query={query} variables={{ login, repositoriesPerPage }}>
-        {({ data, loading, error, fetchMore }) => {
+        {({ data, loading, error, fetchMore, networkStatus }) => {
 
-            if (loading) return <Loader />
-            if (error) return <p>{error.message}</p>
+            if (loading ||
+                networkStatus < 7) return <Loader />
+            if (error || networkStatus === 8) return <p>{error.message}</p>
 
             const repositories = data.user.repositories.nodes;
             const hasNextPage = data.user.repositories.pageInfo.hasNextPage;
@@ -55,6 +57,7 @@ const withUserRepositories = (WrappedComponent) => ({ login, repositoriesPerPage
                     }
                     )
                 }
+                notifyOnNetworkStatusChang={true}
                 hasNextPage={hasNextPage}
                 repositories={repositories}
                 login={login} />
