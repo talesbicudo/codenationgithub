@@ -7,7 +7,7 @@ const token = `Bearer 941a641ace9b12cd7e1d4a46d51f7e1f321c35bd`;
 const client = createClient(token);
 
 
-const SampleComponent = ({ repositories, onLoadMore, hasNextPage }) => {
+const SampleComponent = ({ repositories, loadMore, hasNextPage }) => {
   const repositoriesDivs = repositories.map(repository => (
     <div key={repository.id}>
       <h1>{repository.name}</h1>
@@ -17,7 +17,7 @@ const SampleComponent = ({ repositories, onLoadMore, hasNextPage }) => {
   return (
     <div>
       {repositoriesDivs}
-      {hasNextPage && <button onClick={onLoadMore}>Mais</button>}
+      {hasNextPage && <button onClick={loadMore}>Mais</button>}
     </div>
   )
 }
