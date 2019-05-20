@@ -6,7 +6,9 @@ import gql from 'graphql-tag';
 const query = gql`
 query ($login: String! $repositoriesPerPage: Int! $cursor: String) {
     user(login: $login){
+        login
         repositories(orderBy: {field: CREATED_AT, direction: ASC} first: $repositoriesPerPage after: $cursor) {
+            totalCount
             nodes {
                 name
                 id

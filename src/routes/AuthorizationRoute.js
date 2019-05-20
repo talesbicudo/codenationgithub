@@ -1,8 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
-import { setToken } from '../client';
+import { login, checkValidToken } from '../services/login';
 import AuthorizationForm from '../containers/AuthorizationForm';
-import { checkValidToken } from '../helpers';
 
 const AuthorizationRoute = ({ location, history }) => {
     const [warning, setWarning] = React.useState(null);
@@ -11,8 +10,7 @@ const AuthorizationRoute = ({ location, history }) => {
         checkValidToken(token)
             .then(token => {
                 setRedirecting(true);
-                setToken(token);
-                window.location.reload();
+                login(token);
             })
             .catch(() => {
                 setWarning('Invalid Token');

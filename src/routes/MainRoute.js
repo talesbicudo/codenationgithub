@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { getToken } from '../client'
+import { getToken } from '../services/login'
 import AuthenticatedRoute from './AuthenticatedRoute';
 import AuthorizationRoute from './AuthorizationRoute';
 

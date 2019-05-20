@@ -13,12 +13,12 @@ const AuthorizationForm = ({ onSubmit, warning }) => {
     return (
         <div>
             {warning && <div className="warning">Warning: {warning}</div>}
-            <h1>Submit a Personal Access User Token to use this application
+            <h1>Insira uma Personal Access User Token para usar esta aplicação 
                 (<a href='https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line'>Tutorial</a>)
                 </h1>
             <form onSubmit={handleSubmit}>
                 <input value={value} type='text' onChange={handleChange} />
-                <button type="submit">Submit</button>
+                <button type="submit">Enviar</button>
             </form>
         </div>
     )
