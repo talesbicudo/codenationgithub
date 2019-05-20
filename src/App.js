@@ -1,27 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider } from 'react-apollo';
+import withUserRepositories from './QueryHOCS/withUserRepositories';
+import createClient from './client';
 
-function App() {
-  
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const token = `Bearer 941a641ace9b12cd7e1d4a46d51f7e1f321c35bd`;
+const client = createClient(token);
+
+
+const SampleComponent = ({ repositories, onLoadMore, hasNextPage }) => {
+  const repositoriesDivs = repositories.map(repository => (
+    <div key={repository.id}>
+      <h1>{repository.name}</h1>
+      <p>Criado em: {repository.createdAt}</p>
     </div>
-  );
+  ))
+  return (
+    <div>
+      {repositoriesDivs}
+      {hasNextPage && <button onClick={onLoadMore}>Mais</button>}
+    </div>
+  )
 }
+
+const RepositoriesSampleComponent = withUserRepositories(SampleComponent);
+
+const App = () => (
+  <ApolloProvider client={client}>
+    <RepositoriesSampleComponent repositoriesPerPage={50} login={'andrew'} />
+  </ApolloProvider>
+)
 
 export default App;

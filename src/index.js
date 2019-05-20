@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-const token = `Bearer ${process.env.REACT_APP_API_TOKEN}`;
-console.log(token);
-
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
