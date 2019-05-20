@@ -6,9 +6,11 @@ const ENDPOINT_URI = process.env.REACT_APP_API_ENDPOINT;
 
 const cache = new InMemoryCache();
 
-export const createClient = authToken => new ApolloClient(
+const createClient = authToken => new ApolloClient(
     {
         cache,
         link:
             createHttpLink({ uri: ENDPOINT_URI, headers: { authorization: authToken } })
     });
+
+export default createClient;
