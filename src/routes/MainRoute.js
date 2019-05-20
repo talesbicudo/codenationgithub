@@ -9,9 +9,10 @@ import AuthorizationRoute from './AuthorizationRoute';
 //const token = localStorage.getItem('GITHUB_APP_TOKEN');
 
 const MainRoute = () => {
+    const token = getToken();
     return (
         <BrowserRouter>
-            { getToken() ?
+            {token ?
                 <AuthenticatedRoute /> :
                 <AuthorizationRoute />
             }

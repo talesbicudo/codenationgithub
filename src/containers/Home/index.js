@@ -1,7 +1,8 @@
 import React from 'react';
+import RepositoryList from '../../components/RepositoryList';
 
 const Home = () => (
-    <h1>Home</h1>
+   <RepositoryList login="andrew" repositoriesPerPage={40} />
 )
 
 export default Home;
