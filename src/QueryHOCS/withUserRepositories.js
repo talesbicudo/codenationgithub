@@ -2,7 +2,6 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import Loader from '../components/Loader';
 import gql from 'graphql-tag';
-import NetworkStatus from './NetworkStatus';
 
 const query = gql`
 query ($login: String! $repositoriesPerPage: Int! $cursor: String) {

@@ -1,11 +1,6 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
 import withUserRepositories from './QueryHOCS/withUserRepositories';
-import createClient from './client';
-
-const token = `Bearer 941a641ace9b12cd7e1d4a46d51f7e1f321c35bd`;
-const client = createClient(token);
-
+import MainRoute from './routes/MainRoute'
 
 const SampleComponent = ({ repositories, loadMore, hasNextPage }) => {
   const repositoriesDivs = repositories.map(repository => (
@@ -25,9 +20,7 @@ const SampleComponent = ({ repositories, loadMore, hasNextPage }) => {
 const RepositoriesSampleComponent = withUserRepositories(SampleComponent);
 
 const App = () => (
-  <ApolloProvider client={client}>
-    <RepositoriesSampleComponent repositoriesPerPage={50} login={'andrew'} />
-  </ApolloProvider>
+  <MainRoute />
 )
 
 export default App;
