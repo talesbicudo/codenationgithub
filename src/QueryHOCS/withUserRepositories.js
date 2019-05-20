@@ -29,8 +29,9 @@ const withUserRepositories = (WrappedComponent) => ({ login, repositoriesPerPage
                 networkStatus < 7) return <Loader />
             if (error || networkStatus === 8) return <p>{error.message}</p>
 
-            const repositories = data.user.repositories.nodes;
-            const hasNextPage = data.user.repositories.pageInfo.hasNextPage;
+            const user = data.user;
+            const repositories = user.repositories.nodes;
+            const hasNextPage = user.repositories.pageInfo.hasNextPage;
             return < WrappedComponent
                 loadMore={() =>
                     fetchMore({
@@ -59,7 +60,7 @@ const withUserRepositories = (WrappedComponent) => ({ login, repositoriesPerPage
                 notifyOnNetworkStatusChang={true}
                 hasNextPage={hasNextPage}
                 repositories={repositories}
-                login={login} />
+                user={user} />
         }
         }
     </Query>
