@@ -1,8 +1,9 @@
+
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { getToken } from '../services/login';
+import { getAuthToken } from '../services/login';
 
 
 export const ENDPOINT_URI = "https://api.github.com/graphql"
@@ -13,7 +14,7 @@ const authLink = new ApolloLink((operation, forward) => {
     operation.setContext(context => ({
         headers: {
             ...context.headers,
-            authorization: `Bearer ${getToken()}`
+            authorization: `Bearer ${getAuthToken()}`
         }
     }))
     return forward(operation)

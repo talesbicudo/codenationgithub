@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/../.local.env'})
+require('dotenv').config({path: __dirname + '/../.env'})
 var url = require('url'),
     http = require('http'),
     https = require('https'),

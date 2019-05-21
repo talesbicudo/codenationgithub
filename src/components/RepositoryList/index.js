@@ -1,5 +1,5 @@
 import React from 'react';
-import withUserRepositories from '../../QueryHOCS/withUserRepositories';
+import withUser from '../../QueryHOCS/withUser';
 import RepositoryItem from '../RepositoryItem';
 
 const RepositoryList = ({ user, repositories, loadMore, hasNextPage }) => {
@@ -17,4 +17,4 @@ const RepositoryList = ({ user, repositories, loadMore, hasNextPage }) => {
     )
 }
 
-export default withUserRepositories(RepositoryList);
+export default withUser(RepositoryList);

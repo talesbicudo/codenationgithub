@@ -1,10 +1,11 @@
 import React from 'react';
 import RepositoryList from '../../components/RepositoryList';
-import { logout } from '../../services/login';
 const Home = () => (
     <div>
-        <button onClick={logout}>Logout</button>
-        <RepositoryList login="andrew" repositoriesPerPage={5} />
+        <RepositoryList login=";asdlkfjasdf" repositoriesPerPage={5}
+            onLoading={() => console.log('loading')}
+            onError={error => console.log(error)}
+        />
     </div>
 )
 

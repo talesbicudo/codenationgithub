@@ -1,23 +1,19 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
-import { login, checkValidToken } from '../services/login';
-import AuthorizationForm from '../containers/AuthorizationForm';
+import { login, redirectToGitAuth, isLogged } from '../services/login';
 
 const AuthorizationRoute = ({ location, history }) => {
-    const [warning, setWarning] = React.useState(null);
-    const [redirecting, setRedirecting] = React.useState(false);
-    const authorize = token => {
-        checkValidToken(token)
-            .then(token => {
-                setRedirecting(true);
-                login(token);
-            })
-            .catch(() => {
-                setWarning('Invalid Token');
-            })
+    const reg = /\?code=(.*)/;
+    const match = reg.exec(location.search);
+    if (Array.isArray(match)) {
+        const code = match[1];
+        login(code);
+    } else if(!isLogged()) {
+        redirectToGitAuth();
+    } else {
+        window.location.reload();
     }
-    if (redirecting) return <p>Redirecting...</p>
-    return <AuthorizationForm onSubmit={authorize} warning={warning} />
+    return <p>Authorizing...</p>;
 }
 
 export default withRouter(AuthorizationRoute);

@@ -1,28 +1,27 @@
+import Axios from 'axios';
+
 const TOKEN_LOC = "GITHUB_APP_TOKEN";
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+export const getAuthToken = () => localStorage.getItem(TOKEN_LOC);
 
-export const getToken = () => localStorage.getItem(TOKEN_LOC);
+export const isLogged = () => !!getAuthToken();
 
-export const login = token => {
-    localStorage.setItem(TOKEN_LOC, token);
-    window.location.reload();
-}
+export const login = code =>
+    Axios.get('http://localhost:9999/authenticate/' + code)
+        .then(({ data }) => {
+            if (data.token) {
+                localStorage.setItem(TOKEN_LOC, data.token);
+            }
+            window.location = '/';
+        });
+
 
 export const logout = () => {
     localStorage.removeItem(TOKEN_LOC);
     window.location.reload();
 }
 
-export const checkValidToken = token => new Promise((resolve, reject) => {
-    const request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (request.status === 401) {
-            reject(token);
-        } else if (request.status === 205) {
-            resolve(token)
-        }
-    }
-    request.open('put', "https://api.github.com/notifications", true);
-    request.setRequestHeader('Authorization', `token ${token}`);
-
-    request.send();
-})
+export const redirectToGitAuth = () => {
+    window.location =
+        `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user`
+}
