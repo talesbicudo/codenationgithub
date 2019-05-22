@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-const TOKEN_LOC = "GITHUB_APP_TOKEN";
+export const TOKEN_LOC = "GITHUB_APP_TOKEN";
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 export const getAuthToken = () => localStorage.getItem(TOKEN_LOC);
 
@@ -12,7 +12,7 @@ export const login = code =>
             if (data.token) {
                 localStorage.setItem(TOKEN_LOC, data.token);
             }
-            window.location = '/';
+            window.location.assign('/');
         });
 
 
