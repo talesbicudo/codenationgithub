@@ -35,7 +35,11 @@ query ($repositoriesPerPage: Int! $cursor: String) {
 }
 ${UserFragment}
 `
-const withUser = (WrappedComponent) => ({ isLogged=false, login='', repositoriesPerPage=5, ...queryProps }) => {
+const withUser = (WrappedComponent) => ({
+    isLogged = false,
+    login = '',
+    repositoriesPerPage = 5,
+    ...queryProps }) => {
     const [query, userType] = (isLogged || !login.length) ? [loggedQuery, 'viewer'] : [searchQuery, 'user'];
     return (
         <CheckedQuery query={query} variables={{ login, repositoriesPerPage }} {...queryProps}>
