@@ -27,7 +27,7 @@ describe('Login Service', () => {
         window.location.reload = jest.fn();
         await login();
         logout();
-        expect(localStorage.getItem(TOKEN_LOC)).toBe(null);
+        expect(localStorage.getItem(TOKEN_LOC)).toBe(undefined);
         expect(window.location.reload).toHaveBeenCalledTimes(1);
     })
 })
