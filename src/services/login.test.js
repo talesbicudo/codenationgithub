@@ -5,9 +5,9 @@ jest.mock('axios');
 axios.get.mockImplementation(() => Promise.resolve({ data: { token: 'token' } }));
 
 describe('Login Service', () => {
-    beforeEach(() => {
-        localStorage.clear();
-    })
+    // beforeEach(() => {
+    //     localStorage.clear();
+    // })
     it('logins stores token on localStorage and go to root folder', async () => {
         window.location.assign = jest.fn();
         await login();
