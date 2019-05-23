@@ -4,7 +4,7 @@ import useUserByLogin from '../../QueryHooks/useUserByLogin';
 
 const Home = () => {
     return useUserByLogin({
-        login: 'andrew',
+        login: '',
         repositoriesPerPage: 5,
         LoadedComponent: RepositoryList,
         LoaderComponent: () => <p>Loading...</p>

@@ -1,7 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import usePageLoad from './usePageLoad'
-import useCheckQueryStatus from './useCheckQueryStatus';
 
 const UserFragment = gql`
     fragment UserParts on User {
@@ -20,7 +19,7 @@ const UserFragment = gql`
         }
     }
 `
-const searchQuery = gql`
+const otherUserQuery = gql`
 query ($login: String! $repositoriesPerPage: Int! $cursor: String) {
     user(login: $login){
        ...UserParts 
@@ -28,9 +27,9 @@ query ($login: String! $repositoriesPerPage: Int! $cursor: String) {
 }
 ${UserFragment}
 `
-const loggedQuery = gql`
+const viewerQuery = gql`
 query ($repositoriesPerPage: Int! $cursor: String) {
-    viewer {
+    user: viewer {
         ...UserParts
     }
 }
@@ -63,7 +62,8 @@ const useUserByLogin = ({
     repositoriesPerPage = 5,
     ...checkedQueryProps
 }) => {
-    const queryResultProps = useQuery(searchQuery, { variables: { login, repositoriesPerPage } });
+    const query = login ? otherUserQuery : viewerQuery;
+    const queryResultProps = useQuery(query, { variables: { login, repositoriesPerPage } });
     return usePageLoad({ fetchMoreHandler, dataToProps, getPageInfo, queryResultProps, checkedQueryProps });
 }
 
