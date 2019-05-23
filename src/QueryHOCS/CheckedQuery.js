@@ -4,8 +4,8 @@ import { Query } from 'react-apollo';
 const CheckedQuery =
     ({
         children = queryData => null,
-        LoaderComponent = () => <p>Loading...</p>,
-        ErrorComponent = ({error}) => <p>{error.message}</p>,
+        LoaderComponent = () => null,
+        ErrorComponent = ({error}) => null,
         onLoading = () => null,
         onError = error => null,
         ...queryProps }) => (
