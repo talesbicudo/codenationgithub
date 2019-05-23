@@ -1,8 +1,7 @@
 import React from 'react';
-import withUser from '../../QueryHOCS/withUser';
 import RepositoryItem from '../RepositoryItem';
 
-const RepositoryList = ({ user, repositories, loadMore, hasNextPage }) => {
+const RepositoryList = ({ login, repositoriesPerPage, hasNextPage, loadMore, user, repositories }) => {
     const items = repositories.map(repository =>
         <RepositoryItem key={repository.id} {...repository} />)
     return (
@@ -17,4 +16,4 @@ const RepositoryList = ({ user, repositories, loadMore, hasNextPage }) => {
     )
 }
 
-export default withUser(RepositoryList);
+export default RepositoryList;
