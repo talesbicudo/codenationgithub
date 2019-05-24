@@ -14,7 +14,7 @@ const query = (fragment) => gql`
 const useNodeWithId = ({ id, type, fetchProps, ...statusProps }) => {
     const fragment = gql`
         fragment nodeFragment on ${type} {
-            ${fetchProps.join('\n')}
+            ${fetchProps}
         }
     `
     const queryResultProps = useQuery(query(fragment), {variables: {id}});
