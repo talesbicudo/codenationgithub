@@ -16,6 +16,7 @@ const useCheckQueryStatus =
             return <LoaderComponent />
         }
         if (error || networkStatus === 8) {
+            onError(error);
             return <ErrorComponent error={error} />
         }
         onLoaded();
