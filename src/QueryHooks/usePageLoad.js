@@ -1,8 +1,8 @@
 import useCheckQueryStatus from './useCheckQueryStatus';
 
-const usePageLoad = ({ fetchMoreHandler, dataToProps, getPageInfo, query, queryResultProps, checkedQueryProps }) => {
+const usePageLoad = ({ fetchMoreHandler, loadedProps, dataToProps, getPageInfo, query, queryResultProps, checkedQueryProps }) => {
     const { fetchMore, data, variables } = queryResultProps
-    const loadedProps = () => {
+    const innerloadedProps = () => {
         const pageInfo = getPageInfo(data);
         const hasNextPage = pageInfo.hasNextPage;
         return {
@@ -19,7 +19,8 @@ const usePageLoad = ({ fetchMoreHandler, dataToProps, getPageInfo, query, queryR
         }
     }
     return useCheckQueryStatus({
-        ...checkedQueryProps, queryResultProps, loadedProps
+        ...checkedQueryProps, queryResultProps,
+        loadedProps: () => ({ ...innerloadedProps(), ...loadedProps })
     })
 }
 

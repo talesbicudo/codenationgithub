@@ -11,15 +11,15 @@ const query = (fragment) => gql`
     ${fragment}
 `
 
-const useNodeWithId = ({ id, type, fetchProps, ...statusProps }) => {
+const useNodeWithId = ({ id, type, fetchProps, loadedProps, ...statusProps }) => {
     const fragment = gql`
         fragment nodeFragment on ${type} {
             ${fetchProps}
         }
     `
     const queryResultProps = useQuery(query(fragment), {variables: {id}});
-    const loadedProps = () => queryResultProps.data.node;
-    return useCheckQueryStatus({...statusProps, loadedProps, queryResultProps});
+    const innerloadedProps = () => ({...queryResultProps.data.node, ...loadedProps});
+    return useCheckQueryStatus({...statusProps, loadedProps: innerloadedProps, queryResultProps});
 }
 
 export default useNodeWithId;

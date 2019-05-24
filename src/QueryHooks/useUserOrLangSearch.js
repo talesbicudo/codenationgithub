@@ -9,6 +9,7 @@ query ($query: String! $itemsPerPage: Int! $cursor: String) {
         nodes {
             ... on User {
                 id
+                login
             }
             
         }
@@ -39,17 +40,18 @@ const fetchMoreHandler = (prev, fetchMoreResult) => {
 const useUserOrLangSearch = ({
     search = '',
     itemsPerPage = 3,
+    loadedProps,
     ...checkedQueryProps
 }) => {
     const getPageInfo = data => data.search.pageInfo;
     const dataToProps = data => ({
-        items: [...data.search.nodes.map(node => ({ type: 'User', id: node.id })),
+        items: [...data.search.nodes.map(node => ({ type: 'User', id: node.id, name: node.login })),
         ...languages.filter(lang => search && lang.language.toLowerCase().includes(search.toLowerCase()))
-            .slice(0, itemsPerPage).map(lang => ({ type: "Language", id: lang.id }))
+            .slice(0, itemsPerPage).map(lang => ({ type: "Language", id: lang.id, name: lang.language }))
         ]
     })
     const queryResultProps = useQuery(query, { variables: { query: search, itemsPerPage } });
-    return usePageLoad({ fetchMoreHandler, dataToProps, getPageInfo, queryResultProps, checkedQueryProps });
+    return usePageLoad({ fetchMoreHandler, loadedProps, dataToProps, getPageInfo, queryResultProps, checkedQueryProps });
 }
 
 
