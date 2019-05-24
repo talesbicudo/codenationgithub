@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SearchInput = ({placeholder, buttonText, onChange, onSubmit }) => {
+const SearchInput = ({ placeholder, buttonText, onFocus, onBlur, onChange, onSubmit }) => {
 
     const [value, setValue] = useState('');
 
@@ -15,9 +15,13 @@ const SearchInput = ({placeholder, buttonText, onChange, onSubmit }) => {
         onSubmit();
     }
 
+    const onFocusHandler = () => onFocus(value);
+    const onBlurHandler = () => onBlur(value)
+
     return (
         <form onSubmit={onSubmitHandler}>
-            <input type="text" value={value} placeholder={placeholder} onChange={onChangeHandler} />
+            <input type="text" onFocus={onFocusHandler}
+                onBlur={onBlurHandler} value={value} placeholder={placeholder} onChange={onChangeHandler} />
             <button type="submit">{buttonText}</button>
         </form>
     )
