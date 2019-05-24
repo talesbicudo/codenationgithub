@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo-hooks';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import client from './client';
+import gql from 'graphql-tag';
 
+gql.disableFragmentWarnings();
 ReactDOM.render(<ApolloProvider client={client}><App /></ApolloProvider>, document.getElementById('root'));
 
 

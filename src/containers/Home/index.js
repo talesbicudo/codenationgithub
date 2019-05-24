@@ -1,16 +1,28 @@
 import React from 'react';
 import RepositoryList from '../../components/RepositoryList';
-const Home = () => (
-    <div>
-        <RepositoryList
-            login="" //Nome do user, se estiver vazio retorna próprio usuário autorizado
-            repositoriesPerPage={5}
-            onLoading={() => console.log('loading')}
-            onError={error => console.log(error)}
-            LoadingComponent={() => 'loading...'}
-            ErrorComponent={({error}) => <p>{error.message}</p>}
-        />
-    </div>
-)
+import useUserByLogin from '../../QueryHooks/useUserByLogin';
+import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
+import SearchList from '../../components/SearchList';
+
+const Home = () => {
+
+    const searchList = useUserOrLangSearch({
+        search: "ada",
+        itemsPerPage: 3,
+        LoadedComponent: SearchList,
+        ErrorComponent: ({error}) => <p>{error.message}</p>
+    }) 
+
+    const userProfile = useUserByLogin({
+        login: 'ada-lovecraft',
+        repositoriesPerPage: 5,
+        LoadedComponent: RepositoryList,
+        LoaderComponent: () => <p>Loading...</p>
+    })
+    return <React.Fragment>
+        {searchList}
+        {userProfile}
+    </React.Fragment>
+}
 
 export default Home;
