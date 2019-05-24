@@ -2,15 +2,17 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from '../containers/Home';
 
-const HomeWithUser = ({ match }) => {
-    const user = match.params.user;
-    return <Home user={user} />
+const HomeWithProfile = ({ match }) => {
+    const { type, name } = match.params;
+    return <Home user={type === 'user' && name}
+        language={type === 'language' && name}
+    />
 }
 
 const AuthenticatedRoute = () => (
     <Switch>
         <Route path='/' exact component={Home} />
-        <Route path='/:user' render={HomeWithUser} />
+        <Route path='/:type/:name' render={HomeWithProfile} />
     </Switch>
 )
 
