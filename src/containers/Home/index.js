@@ -3,26 +3,49 @@ import RepositoryList from '../../components/RepositoryList';
 import useUserByLogin from '../../QueryHooks/useUserByLogin';
 import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
 import SearchList from '../../components/SearchList';
+import SearchInput from '../../components/SearchInput'
+import { connect } from 'react-redux';
+import { searchListRequest, searchListCancel } from '../../redux/SearchList/ActionCreators'
 
-const Home = () => {
+export const Home = ({ dispatch, searchValue = "", searchListVisibility }) => {
 
     const searchList = useUserOrLangSearch({
-        search: "ada",
+        search: searchValue,
         itemsPerPage: 3,
         LoadedComponent: SearchList,
-        ErrorComponent: ({error}) => <p>{error.message}</p>
-    }) 
-
-    const userProfile = useUserByLogin({
-        login: 'ada-lovecraft',
-        repositoriesPerPage: 5,
-        LoadedComponent: RepositoryList,
-        LoaderComponent: () => <p>Loading...</p>
     })
+
+    const onChangeHandler = value => {
+        if (value) {
+            dispatch(searchListRequest(value));
+        } else {
+            dispatch(searchListCancel(value));
+        }
+    }
+
+    // const userProfile = useUserByLogin({
+    //     login: 'ada-lovecraft',
+    //     repositoriesPerPage: 5,
+    //     LoadedComponent: RepositoryList,
+    //     LoaderComponent: () => <p>Loading...</p>
+    // })
+
     return <React.Fragment>
-        {searchList}
-        {userProfile}
+        <SearchInput onChange={onChangeHandler} placeholder="Usuário ou Linguagem" buttonText="procurar" />
+        <div style={{ visibility: searchListVisibility }}>
+            {searchList}
+        </div>
+        {/* {userProfile} */}
     </React.Fragment>
 }
 
-export default Home;
+const mapStateToProps = ({ SearchList }) => {
+    const { value, visibility } = SearchList;
+    return {
+        searchValue: value,
+        searchListVisibility: visibility
+    }
+}
+
+
+export default connect(mapStateToProps)(Home);
