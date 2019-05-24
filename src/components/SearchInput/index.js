@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SearchInput = ({ initialValue, placeholder, buttonText, onFocus, onBlur, onChange, onSubmit }) => {
+const SearchInput = ({ initialValue = "", placeholder, buttonText, onFocus, onBlur, onChange, onSubmit }) => {
 
     const [value, setValue] = useState(initialValue);
 
