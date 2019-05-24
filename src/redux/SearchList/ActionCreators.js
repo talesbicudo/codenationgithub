@@ -9,3 +9,7 @@ export const searchListCancel = searchText => ({
     type: ActionTypes.CANCEL,
     payload: { searchText }
 })
+
+export const searchListSuccess = () => ({
+    type: ActionTypes.SUCCESS
+})

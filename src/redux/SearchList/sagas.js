@@ -6,6 +6,6 @@ export default function* () {
 }
 
 export function* handleCancel(action) {
-    yield delay(300);
+    yield delay(150);
     yield put({ ...action, type: ActionTypes.CANCEL_ASYNC })
 }

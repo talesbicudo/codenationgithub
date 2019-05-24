@@ -3,18 +3,22 @@ import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
 import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput'
 import { connect } from 'react-redux';
-import { searchListRequest, searchListCancel } from '../../redux/SearchList/ActionCreators'
+import { searchListRequest, searchListSuccess, searchListCancel } from '../../redux/SearchList/ActionCreators'
 
-export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility }) => {
+export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility, searchLoading }) => {
 
     const createLink = item =>
         `/${item.type.toLowerCase()}/${item.name}`
+
+    const onLoaded = () => {
+        dispatch(searchListSuccess());
+    }
 
     const searchList = useUserOrLangSearch({
         search: searchValue,
         itemsPerPage: 3,
         LoadedComponent: SearchList,
-        loadedProps: { createLink }
+        loadedProps: { createLink, onLoaded, loading: searchLoading }
     })
 
     const onChangeHandler = value => {
@@ -26,7 +30,9 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
     }
 
     const onFocusHandler = value => {
-        dispatch(searchListRequest(value));
+        if (value) {
+            dispatch(searchListRequest(value));
+        }
     }
 
     const onBlurHandler = value => {
@@ -40,7 +46,8 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
                 onChange={onChangeHandler}
                 placeholder="Usuário ou Linguagem"
                 buttonText="procurar"
-                initialValue={initialValue} />
+                initialValue={initialValue}
+            />
             <div style={{ visibility: searchListVisibility }}>
                 {searchList}
             </div>
