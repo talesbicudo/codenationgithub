@@ -1,13 +1,13 @@
 import React from 'react';
 import RepositoryList from '../../components/RepositoryList';
 import useUserByLogin from '../../QueryHooks/useUserByLogin';
-import useUserSearch from '../../QueryHooks/useUserSearch';
+import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
 import SearchList from '../../components/SearchList';
 
 const Home = () => {
 
-    const searchList = useUserSearch({
-        search: "ad",
+    const searchList = useUserOrLangSearch({
+        search: "java",
         itemsPerPage: 3,
         LoadedComponent: SearchList,
         ErrorComponent: ({error}) => <p>{error.message}</p>,
