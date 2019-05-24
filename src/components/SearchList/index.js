@@ -1,7 +1,5 @@
 import React from 'react'
-import UserSearchListItem from '../SearchListItems/UserSearchListItem';
-import LanguageSearchListItem from '../SearchListItems/LanguageSearchListItem';
-import SearchListItem from '../SearchListItems/SearchListItem';
+import SearchListItem from '../SearchListItem';
 
 const SearchList = ({ items }) => (
     <div>
