@@ -1,11 +1,14 @@
 import React from 'react'
+import UserSearchListItem from '../SearchListItems/UserSearchListItem';
+import LanguageSearchListItem from '../SearchListItems/LanguageSearchListItem';
+const SearchListItems = { "language": LanguageSearchListItem, "user": UserSearchListItem };
+const SearchList = ({ items }) => {
 
-const SearchList = ({ items, loadMore }) => {
-    React.useEffect(() => {
-        loadMore()
-    }, [loadMore])
     return <div>
-        {items.map(node => <p>{node.id}</p>)}
+        {items.map(item => {
+            const SearchListItem = SearchListItems[item.type];
+            return <SearchListItem key={item.id} id={item.id} />
+        })}
     </div>
 
 }
