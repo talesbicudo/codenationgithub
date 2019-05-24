@@ -44,7 +44,7 @@ const useUserOrLangSearch = ({
     const getPageInfo = data => data.search.pageInfo;
     const dataToProps = data => ({
         items: [...data.search.nodes.map(node => ({ type: 'User', id: node.id })),
-        ...languages.filter(lang => lang.language.includes(lang.language))
+        ...languages.filter(lang => lang.language.toLowerCase().includes(search.toLowerCase()))
             .slice(0, itemsPerPage).map(lang => ({ type: "Language", id: lang.id }))
         ]
     })

@@ -7,7 +7,7 @@ import SearchList from '../../components/SearchList';
 const Home = () => {
 
     const searchList = useUserOrLangSearch({
-        search: "java",
+        search: "ada",
         itemsPerPage: 3,
         LoadedComponent: SearchList,
         ErrorComponent: ({error}) => <p>{error.message}</p>
