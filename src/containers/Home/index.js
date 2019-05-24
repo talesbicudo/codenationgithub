@@ -1,51 +1,28 @@
 import React from 'react';
 import RepositoryList from '../../components/RepositoryList';
 import useUserByLogin from '../../QueryHooks/useUserByLogin';
-import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
-import SearchList from '../../components/SearchList';
-import SearchInput from '../../components/SearchInput'
-import { connect } from 'react-redux';
-import { searchListRequest, searchListCancel } from '../../redux/SearchList/ActionCreators'
+import MainSearch from '../MainSearch';
 
-export const Home = ({ dispatch, searchValue = "", searchListVisibility }) => {
+export const Home = () => {
 
-    const searchList = useUserOrLangSearch({
-        search: searchValue,
-        itemsPerPage: 3,
-        LoadedComponent: SearchList,
+
+    const userProfile = useUserByLogin({
+        login: '',
+        repositoriesPerPage: 5,
+        LoadedComponent: RepositoryList,
+        LoaderComponent: () => <p>Loading...</p>
     })
 
-    const onChangeHandler = value => {
-        if (value) {
-            dispatch(searchListRequest(value));
-        } else {
-            dispatch(searchListCancel(value));
-        }
-    }
-
-    // const userProfile = useUserByLogin({
-    //     login: 'ada-lovecraft',
-    //     repositoriesPerPage: 5,
-    //     LoadedComponent: RepositoryList,
-    //     LoaderComponent: () => <p>Loading...</p>
-    // })
-
-    return <React.Fragment>
-        <SearchInput onChange={onChangeHandler} placeholder="Usuário ou Linguagem" buttonText="procurar" />
-        <div style={{ visibility: searchListVisibility }}>
-            {searchList}
-        </div>
-        {/* {userProfile} */}
-    </React.Fragment>
-}
-
-const mapStateToProps = ({ SearchList }) => {
-    const { value, visibility } = SearchList;
-    return {
-        searchValue: value,
-        searchListVisibility: visibility
-    }
+    return (
+        <React.Fragment>
+            <MainSearch />
+            <hr />
+            {userProfile}
+        </React.Fragment>
+    )
 }
 
 
-export default connect(mapStateToProps)(Home);
+
+
+export default Home; 
