@@ -7,6 +7,7 @@ const createActionTypes = base => {
 
   TYPES.forEach(type => {
     ref[type] = `${base}_${type}`;
+    ref[type + "_ASYNC"] = `${base}_${type}_ASYNC`
   });
 
   return ref;
