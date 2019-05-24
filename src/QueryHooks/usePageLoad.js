@@ -8,7 +8,6 @@ const usePageLoad = ({ fetchMoreHandler, dataToProps, getPageInfo, query, queryR
         return {
             loadMore: () =>
                 fetchMore({
-                    query,
                     variables: { ...variables, cursor: pageInfo.endCursor },
                     updateQuery: (prev, { fetchMoreResult }) => {
                         if (hasNextPage) return fetchMoreHandler(prev, fetchMoreResult)
