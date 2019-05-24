@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import usePageLoad from './usePageLoad'
+import languages from '../data/languages.json';
 
 const query = gql`
 query ($query: String! $itemsPerPage: Int! $cursor: String) {
@@ -41,7 +42,12 @@ const useUserOrLangSearch = ({
     ...checkedQueryProps
 }) => {
     const getPageInfo = data => data.search.pageInfo;
-    const dataToProps = data => ({ items: data.search.nodes.map(node => ({type: 'user', id: node.id})) })
+    const dataToProps = data => ({
+        items: [...data.search.nodes.map(node => ({ type: 'user', id: node.id })),
+        ...languages.filter(lang => lang.language.includes(lang.language))
+            .slice(0, itemsPerPage).map(lang => ({ type: "language", id: lang.id }))
+        ]
+    })
     const queryResultProps = useQuery(query, { variables: { query: search, itemsPerPage } });
     return usePageLoad({ fetchMoreHandler, dataToProps, getPageInfo, queryResultProps, checkedQueryProps });
 }

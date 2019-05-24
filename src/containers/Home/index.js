@@ -10,8 +10,7 @@ const Home = () => {
         search: "java",
         itemsPerPage: 3,
         LoadedComponent: SearchList,
-        ErrorComponent: ({error}) => <p>{error.message}</p>,
-        LoaderComponent: () => <p>Loading...</p>
+        ErrorComponent: ({error}) => <p>{error.message}</p>
     }) 
 
     const userProfile = useUserByLogin({
