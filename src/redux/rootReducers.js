@@ -2,9 +2,9 @@
 import { combineReducers } from "redux";
 
 /* Reducers */
-import SearchInput from "./SearchList/reducer";
+import SearchList from "./SearchList/reducer";
 
 // all the reducers are in one place
-const rootReducers = combineReducers({SearchInput});
+const rootReducers = combineReducers({SearchList});
 
 export default rootReducers;
