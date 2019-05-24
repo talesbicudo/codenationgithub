@@ -45,7 +45,9 @@ const fetchMoreHandler = (prev, fetchMoreResult) => {
     return {
         user: {
             __typename: prev.user.__typename,
+            login: prev.login,
             repositories: {
+                totalCount: prevRepositories.totalCount,
                 nodes: [...prevNodes, ...newNodes],
                 __typename: prevRepositories.__typename,
                 pageInfo
