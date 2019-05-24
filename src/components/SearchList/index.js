@@ -1,16 +1,16 @@
 import React from 'react'
 import UserSearchListItem from '../SearchListItems/UserSearchListItem';
 import LanguageSearchListItem from '../SearchListItems/LanguageSearchListItem';
-const SearchListItems = { "language": LanguageSearchListItem, "user": UserSearchListItem };
-const SearchList = ({ items }) => {
+import SearchListItem from '../SearchListItems/SearchListItem';
 
-    return <div>
-        {items.map(item => {
-            const SearchListItem = SearchListItems[item.type];
-            return <SearchListItem key={item.id} id={item.id} />
+const SearchList = ({ items }) => (
+    <div>
+        {items.map((item) => {
+            return <SearchListItem key={item.id} {...item} />
         })}
     </div>
+)
 
-}
+
 
 export default SearchList;
