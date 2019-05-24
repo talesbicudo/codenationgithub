@@ -21,9 +21,17 @@ export const MainSearch = ({ dispatch, searchValue = "", searchListVisibility })
         }
     }
 
+    const onFocusHandler = value => {
+        dispatch(searchListRequest(value));
+    }
+
+    const onBlurHandler = value => {
+        dispatch(searchListCancel(value));
+    }
+
     return (
         <Fragment>
-            <SearchInput onChange={onChangeHandler} placeholder="Usuário ou Linguagem" buttonText="procurar" />
+            <SearchInput onFocus={onFocusHandler} onBlur={onBlurHandler} onChange={onChangeHandler} placeholder="Usuário ou Linguagem" buttonText="procurar" />
             <div style={{ visibility: searchListVisibility }}>
                 {searchList}
             </div>
