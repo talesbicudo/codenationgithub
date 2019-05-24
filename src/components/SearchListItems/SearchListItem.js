@@ -2,7 +2,7 @@ import UserSearchListItem from '../SearchListItems/UserSearchListItem';
 import LanguageSearchListItem from '../SearchListItems/LanguageSearchListItem';
 import useNodeWithId from '../../QueryHooks/useNodeWithId';
 
-const nodeMaps = {
+const typeMaps = {
     User: {
         fetchProps: `avatarUrl
                      login`,
@@ -16,6 +16,6 @@ const nodeMaps = {
         }
 }
 
-const SearchListItem = ({ id, type }) => useNodeWithId({ id, type, ...nodeMaps[type] });
+const SearchListItem = ({ id, type }) => useNodeWithId({ id, type, ...typeMaps[type] });
 
 export default SearchListItem;
