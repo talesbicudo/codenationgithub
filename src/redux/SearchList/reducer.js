@@ -5,7 +5,7 @@ export default (store = { value: "", visibility: 'hidden', loading: false }, act
         case ActionTypes.REQUEST:
             return { ...store, value: payload.searchText, visibility: 'visible', loading: true };
         case ActionTypes.CANCEL:
-            return {...store, value: "", visibility: "hidden", loading: false}
+            return { ...store, value: payload.searchText, visibility: "hidden", loading: false }
         default:
             return store;
     }
