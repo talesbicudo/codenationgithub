@@ -7,10 +7,14 @@ import { searchListRequest, searchListCancel } from '../../redux/SearchList/Acti
 
 export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility }) => {
 
+    const createLink = item =>
+        `/${item.type.toLowerCase()}/${item.name}`
+
     const searchList = useUserOrLangSearch({
         search: searchValue,
         itemsPerPage: 3,
         LoadedComponent: SearchList,
+        loadedProps: { createLink }
     })
 
     const onChangeHandler = value => {
