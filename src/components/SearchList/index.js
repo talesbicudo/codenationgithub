@@ -2,7 +2,7 @@ import React from 'react'
 import SearchListItem from '../SearchListItem';
 
 const SearchList = ({ items }) => (
-    <div>
+    <div style={{position: 'absolute'}}>
         {items.map((item) => {
             return <SearchListItem key={item.id} {...item} />
         })}
