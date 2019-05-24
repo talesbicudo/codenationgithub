@@ -3,11 +3,11 @@ import RepositoryList from '../../components/RepositoryList';
 import useUserByLogin from '../../QueryHooks/useUserByLogin';
 import MainSearch from '../MainSearch';
 
-export const Home = () => {
+export const Home = ({user}) => {
 
 
     const userProfile = useUserByLogin({
-        login: '',
+        login: user,
         repositoriesPerPage: 5,
         LoadedComponent: RepositoryList,
         LoaderComponent: () => <p>Loading...</p>
@@ -15,7 +15,7 @@ export const Home = () => {
 
     return (
         <React.Fragment>
-            <MainSearch />
+            <MainSearch initialValue={user}/>
             <hr />
             {userProfile}
         </React.Fragment>

@@ -5,7 +5,7 @@ import SearchInput from '../../components/SearchInput'
 import { connect } from 'react-redux';
 import { searchListRequest, searchListCancel } from '../../redux/SearchList/ActionCreators'
 
-export const MainSearch = ({ dispatch, searchValue = "", searchListVisibility }) => {
+export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility }) => {
 
     const searchList = useUserOrLangSearch({
         search: searchValue,
@@ -31,7 +31,12 @@ export const MainSearch = ({ dispatch, searchValue = "", searchListVisibility })
 
     return (
         <Fragment>
-            <SearchInput onFocus={onFocusHandler} onBlur={onBlurHandler} onChange={onChangeHandler} placeholder="Usuário ou Linguagem" buttonText="procurar" />
+            <SearchInput onFocus={onFocusHandler}
+                onBlur={onBlurHandler}
+                onChange={onChangeHandler}
+                placeholder="Usuário ou Linguagem"
+                buttonText="procurar"
+                initialValue={initialValue} />
             <div style={{ visibility: searchListVisibility }}>
                 {searchList}
             </div>
