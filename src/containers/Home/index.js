@@ -14,7 +14,7 @@ const Home = () => {
     }) 
 
     const userProfile = useUserByLogin({
-        login: '',
+        login: 'ada-lovecraft',
         repositoriesPerPage: 5,
         LoadedComponent: RepositoryList,
         LoaderComponent: () => <p>Loading...</p>

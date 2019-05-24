@@ -7,7 +7,7 @@ const useCheckQueryStatus =
         onLoading = () => null,
         onLoaded = () => null,
         onError = error => null,
-        loadedProps = () => {},
+        loadedProps = () => ({}),
         queryResultProps = {} }) => {
         const { loading, error, networkStatus } = queryResultProps;
         if (loading ||
