@@ -37,8 +37,9 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
     }
 
 
-    const items = !loading && !error ? [...users.map(user => ({ type: 'User', id: user.id }))] : [];
+    const items = !loading && !error ? [...users.map(user => ({ type: 'User', id: user.id, name: user.login }))] : [];
 
+    console.log(items);
 
     return (
         <Fragment>
