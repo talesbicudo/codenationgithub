@@ -2,7 +2,8 @@
 import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import introspectionQueryResultData from './fragmentTypes.json';
 import { getAuthToken } from '../services/login';
 
 
@@ -21,7 +22,11 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const link = concat(authLink, httpLink);
-const cache = new InMemoryCache();
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData
+  });
+
+const cache = new InMemoryCache({fragmentMatcher});
 
 const client = new ApolloClient({ cache, link });
 

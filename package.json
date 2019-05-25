@@ -45,6 +45,8 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.2.0",
+    "@graphql-codegen/fragment-matcher": "^1.2.0",
     "react-testing-library": "^7.0.1"
   }
 }
