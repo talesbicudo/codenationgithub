@@ -1,5 +1,4 @@
-import useCheckQueryStatus from './useCheckQueryStatus';
-import { useQuery } from 'react-apollo-hooks';
+import useCheckedQuery from './useCheckedQuery'
 import gql from 'graphql-tag';
 
 const query = (fragment) => gql`
@@ -11,15 +10,17 @@ const query = (fragment) => gql`
     ${fragment}
 `
 
-const useNodeWithId = ({ id, type, fetchProps, loadedProps, ...statusProps }) => {
+const useNodeWithId = ({ id, nodeType, nodeProps }) => {
+
     const fragment = gql`
-        fragment nodeFragment on ${type} {
-            ${fetchProps}
+        fragment nodeFragment on ${nodeType} {
+            ${nodeProps}
         }
     `
-    const queryResultProps = useQuery(query(fragment), {variables: {id}});
-    const innerloadedProps = () => ({...queryResultProps.data.node, ...loadedProps});
-    return useCheckQueryStatus({...statusProps, loadedProps: innerloadedProps, queryResultProps});
+
+    const mapDataToProps = data => ({ node: data.node });
+    return useCheckedQuery(query(fragment), mapDataToProps, { variables: { id } });
+
 }
 
 export default useNodeWithId;

@@ -3,15 +3,15 @@ import LanguageSearchListItem from './LanguageSearchListItem';
 
 export default {
     User: {
-        fetchProps: `avatarUrl
+        nodeProps: `avatarUrl
                      login`,
-        LoadedComponent: UserSearchListItem
+        Component: UserSearchListItem
     },
     Language:
         {
-            fetchProps: `color
+            nodeProps: `color
                         name`,
-            LoadedComponent: LanguageSearchListItem
+            Component: LanguageSearchListItem
         }
 }
 

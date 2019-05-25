@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import useUserOrLangSearch from '../../QueryHooks/useUserOrLangSearch';
+import useUserIdWithSearch from '../../QueryHooks/useUserIdWithSearch';
 import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput'
 import { connect } from 'react-redux';
@@ -10,17 +10,14 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
     const createLink = item =>
         `/${item.type.toLowerCase()}/${item.name}`
 
-    const onLoaded = () => {
+    const loadedHandler = () => {
         dispatch(searchListSuccess());
     }
 
-    const searchList = useUserOrLangSearch({
+    const { loading, error, users } = useUserIdWithSearch({
         search: searchValue,
         itemsPerPage: 3,
-        LoadedComponent: SearchList,
-        loadedProps: { createLink, onLoaded, loading: searchLoading }
     })
-
     const onChangeHandler = value => {
         if (value) {
             dispatch(searchListRequest(value));
@@ -39,6 +36,10 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
         dispatch(searchListCancel(value));
     }
 
+
+    const items = !loading && !error ? [...users.map(user => ({ type: 'User', id: user.id }))] : [];
+
+
     return (
         <Fragment>
             <SearchInput onFocus={onFocusHandler}
@@ -49,8 +50,9 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
                 initialValue={initialValue}
             />
             <div style={{ visibility: searchListVisibility }}>
-                {searchList}
+                <SearchList items={items} createLink={createLink} onLoaded={loadedHandler} loading={searchLoading} />
             </div>
+
         </Fragment>
     )
 

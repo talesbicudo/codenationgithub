@@ -1,8 +1,8 @@
 import React from 'react';
 import RepositoryItem from '../RepositoryItem';
 
-const RepositoryList = ({ login, repositoriesPerPage, hasNextPage, loadMore, user, repositories }) => {
-    const items = repositories.map(repository =>
+const RepositoryList = ({ hasNextPage, loadMore, user }) => {
+    const items = user.repositories.nodes.map(repository =>
         <RepositoryItem key={repository.id} {...repository} />)
     return (
         <div>
