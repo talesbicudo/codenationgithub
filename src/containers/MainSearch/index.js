@@ -4,6 +4,7 @@ import SearchList from '../../components/SearchList';
 import SearchInput from '../../components/SearchInput'
 import { connect } from 'react-redux';
 import { searchListRequest, searchListSuccess, searchListCancel } from '../../redux/SearchList/ActionCreators'
+import languages from '../../data/languages.json';
 
 export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility, searchLoading }) => {
 
@@ -18,6 +19,7 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
         search: searchValue,
         itemsPerPage: 3,
     })
+
     const onChangeHandler = value => {
         if (value) {
             dispatch(searchListRequest(value));
@@ -35,11 +37,18 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
     const onBlurHandler = value => {
         dispatch(searchListCancel(value));
     }
+    const selectedLanguages = searchValue ?
+        languages.filter(({ name }) =>
+            name.toString().toLowerCase().includes(searchValue.toLowerCase())
+        )
+            .slice(0, 2).map(({ name, id }) => ({ type: 'Language', id, name })) :
+        [];
 
+    const selectedUsers = !loading && !error ? users
+        .map(user => ({ type: 'User', id: user.id, name: user.login })) :
+        []
+    const items = [...selectedLanguages, ...selectedUsers];
 
-    const items = !loading && !error ? [...users.map(user => ({ type: 'User', id: user.id, name: user.login }))] : [];
-
-    console.log(items);
 
     return (
         <Fragment>
