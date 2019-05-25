@@ -11,9 +11,9 @@ const SearchList = ({ items, createLink, loading, onLoaded }) => {
         }
         yield onLoaded();
     }
-
     const loadingItemsHandler = loadingItems();
     const itemsStyle = loading ? { display: 'none' } : {};
+    if (!items.length) return null;
     return (
         <div style={{ position: 'absolute' }}>
             {loading && <p>Loading...</p>}
