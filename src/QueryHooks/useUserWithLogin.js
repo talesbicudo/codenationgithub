@@ -55,7 +55,7 @@ const fetchMoreHandler = (prev, fetchMoreResult) => {
     }
 };
 
-const mapDataToProps = data => ({ repositories: data.user.repositories.nodes, user: data.user })
+const mapDataToProps = data => ({ user: data.user })
 const getPageInfo = data => data.user.repositories.pageInfo;
 
 const useUserWithLogin = ({
