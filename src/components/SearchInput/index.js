@@ -22,16 +22,16 @@ const SearchInput = ({
     const onChangeHandler = event => {
         const value = event.target.value;
         setValue(value);
-        onChange(value);
+        onChange(value, event);
     }
 
     const onSubmitHandler = event => {
         event.preventDefault();
-        onSubmit();
+        onSubmit(event);
     }
 
-    const onFocusHandler = () => onFocus(value);
-    const onBlurHandler = () => onBlur(value)
+    const onFocusHandler = event => onFocus(value, event);
+    const onBlurHandler = event => onBlur(value, event)
 
     return (
         <form onSubmit={onSubmitHandler} css={css`

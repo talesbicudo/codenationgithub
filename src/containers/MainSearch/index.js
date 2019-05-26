@@ -5,14 +5,16 @@ import SearchInput from '../../components/SearchInput'
 import { connect } from 'react-redux';
 import { searchListRequest, searchListSuccess, searchListCancel } from '../../redux/SearchList/ActionCreators'
 import languages from '../../data/languages.json';
-
+import Box from '@material-ui/core/Box';
 export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchListVisibility, searchLoading }) => {
 
     const createLink = item =>
         `/${item.type.toLowerCase()}/${item.name}`
 
     const loadedHandler = () => {
-        dispatch(searchListSuccess());
+        if (searchLoading) {
+            dispatch(searchListSuccess());
+        }
     }
 
     const { loading, error, users } = useUserIdWithSearch({
@@ -28,7 +30,7 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
         }
     }
 
-    const onFocusHandler = value => {
+    const onFocusHandler = (value, event) => {
         if (value) {
             dispatch(searchListRequest(value));
         }
@@ -57,12 +59,17 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
                 onBlur={onBlurHandler}
                 onChange={onChangeHandler}
                 placeholder="Pesquisar"
-                buttonText="procurar"
                 initialValue={initialValue}
             />
-            <div style={{ visibility: searchListVisibility }}>
-                <SearchList items={items} createLink={createLink} onLoaded={loadedHandler} loading={searchLoading} />
-            </div>
+            <Box style={{visibility: searchListVisibility}}>
+                <SearchList
+                    open={searchListVisibility}
+                    items={items}
+                    createLink={createLink}
+                    onLoaded={loadedHandler}
+                    loading={searchLoading} />
+
+            </Box>
         </Fragment>
     )
 

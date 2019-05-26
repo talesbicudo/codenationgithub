@@ -1,7 +1,7 @@
 import React from 'react';
 import useRepositoriesWithSearch from '../../QueryHooks/useRepositoriesWithSearch'
 import Header from '../../components/Header';
-
+import LanguageAvatar from '../../components/LanguageAvatar';
 const LanguageHeader = ({ name }) => {
     const fetchProps = `
         primaryLanguage {
@@ -9,10 +9,10 @@ const LanguageHeader = ({ name }) => {
         } 
     `
     const { loading, repositories, totalCount } = useRepositoriesWithSearch({ search: `language:${name}`, fetchProps })
-    if (loading) return <p>Loading...</p>
+    if (loading) return null; 
     return (
         <Header name={name}
-            avatar={<div style={{ width: '5vw', height: "30%", backgroundColor: repositories[0].primaryLanguage.color }} />}
+            avatar={<LanguageAvatar big name={name} color={repositories[0].primaryLanguage.color} />}
             totalCount={totalCount}
         />
     )

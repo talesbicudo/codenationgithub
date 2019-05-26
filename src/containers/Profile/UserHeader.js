@@ -1,7 +1,7 @@
 import React from 'react'
 import useUserWithLogin from '../../QueryHooks/useUserWithLogin';
 import Header from '../../components/Header';
-import FitParentImg from '../../components/FitParentImg';
+import UserAvatar from '../../components/UserAvatar';
 
 const UserHeader = ({ name }) => {
 
@@ -14,14 +14,14 @@ const UserHeader = ({ name }) => {
     `
     const { loading, user } = useUserWithLogin({ login: name, fetchProps })
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return null;
 
     return (
-            <Header
-                avatar={<FitParentImg alt={user.login} src={user.avatarUrl} />}
-                name={user.login}
-                totalCount={user.repositories.totalCount}
-            />
+        <Header
+            avatar={<UserAvatar big alt={user.login} avatarUrl={user.avatarUrl} />}
+            name={user.login}
+            totalCount={user.repositories.totalCount}
+        />
 
     )
 }

@@ -1,21 +1,16 @@
-/** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import React from 'react';
+import Box from '@material-ui/core/Box';
 
 const Header = ({ avatar, name, totalCount }) => (
-    <div className='header' css={css`
-        display: flex;
-        justify-content: left; 
-        align-items: center;
-        flex-wrap: nowrap;
-    `}>
-        <div className="header__avatar">
+    <Box display="flex" alignItems="center" justifyContent="flex-start">
+        <Box className="header__avatar">
             {avatar}
-        </div>
-        <div className="header__info">
+        </Box>
+        <Box className="header__info">
             <h1>{name}</h1>
             <p>Repositórios: {totalCount}</p>
-        </div>
-    </div>
+        </Box>
+    </Box>
 )
 
 export default Header;
