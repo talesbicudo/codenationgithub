@@ -34,7 +34,7 @@ const SearchInput = ({
 
     return (
         <form onSubmit={onSubmitHandler} css={css`
-            width: 20rem;
+            width: 100%;
             display: flex;
             border-radius: 0.3rem;
             border: 0.1rem solid grey;
