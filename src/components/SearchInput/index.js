@@ -44,6 +44,9 @@ const SearchInput = ({
                 border: none;
                 padding:.2rem;
             }
+            input {
+                flex-grow: 2;
+            }
             button {
                 display: flex;
                 flex-flow: row;
