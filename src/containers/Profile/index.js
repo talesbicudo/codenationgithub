@@ -1,23 +1,18 @@
 import React from 'react';
-import RepositoryList from '../../components/RepositoryList';
-import useUserWithLogin from '../../QueryHooks/useUserWithLogin';
-import withPageLoad from '../../QueryHooks/withPageLoad';
-const Profile = ({ name }) => {
+import UserHeader from './UserHeader'
+import LanguageHeader from './LanguageHeader';
 
-    const userProfile = withPageLoad(useUserWithLogin({
-        login: name,
-        repositoriesPerPage: 5
-    }));
-
-    const { loading, error, user, loadMore, hasNextPage } = userProfile;
-
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>{error.message}</p>
-
+const Profile = ({ type = "User", name = "" }) => {
 
     return (
-        <RepositoryList user={user} loadMore={loadMore} hasNextPage={hasNextPage} />
+        <div className="profile">
+            <div className="profile__header" style={{ height: '30vh', display: "flex" }}>
+                {type === "User" && <UserHeader name={name} />}
+                {type === "Language" && <LanguageHeader type={type} name={name} />}
+            </div>
+        </div>
     )
+
 
 }
 
