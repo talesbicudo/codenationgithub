@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SearchInput = ({ initialValue = "", placeholder, buttonText, onFocus, onBlur, onChange, onSubmit }) => {
+const SearchInput = ({
+    initialValue = "",
+    placeholder = "",
+    buttonText = "",
+    onFocus = () => { },
+    onBlur = () => { },
+    onChange = () => { },
+    onSubmit = () => { } }) => {
 
     const [value, setValue] = useState(initialValue);
+
+    useEffect(() => {
+        setValue(initialValue);
+    }, [initialValue]);
 
     const onChangeHandler = event => {
         const value = event.target.value;
