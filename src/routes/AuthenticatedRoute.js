@@ -4,9 +4,7 @@ import Home from '../containers/Home';
 
 const HomeWithProfile = ({ match }) => {
     const { type, name } = match.params;
-    return <Home user={type === 'user' && name}
-        language={type === 'language' && name}
-    />
+    return <Home type={type} name={name} />
 }
 
 const AuthenticatedRoute = () => (
