@@ -1,7 +1,7 @@
 import { useQuery } from 'react-apollo-hooks';
 
 const useCheckedQuery =
-    (query, mapDataToProps, queryArgs) => {
+    (query, mapDataToProps = data => data, queryArgs) => {
         const queryProps = useQuery(query, { ...queryArgs, notifyOnNetworkStatusChange: true });
         const { loading, error, data, networkStatus } = queryProps;
         if (loading ||
