@@ -19,8 +19,8 @@ const useRepositoriesWithSearch = ({
         }
     `
     const query = gql`
-        query ($search: String! $itemsPerPage: Int!){
-            search(type: REPOSITORY, query: $search first: $itemsPerPage) {
+        query ($search: String! $itemsPerPage: Int! $cursor: String){
+            search(type: REPOSITORY, query: $search first: $itemsPerPage after: $cursor) {
                 codeCount
                 nodes {
                     ... on Repository {
