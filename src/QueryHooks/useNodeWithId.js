@@ -13,7 +13,7 @@ const query = (fragment) => gql`
 const useNodeWithId = ({ id, nodeType, nodeProps, mapDataToProps }) => {
 
     const fragment = gql`
-        fragment nodeFragment on ${nodeType} {
+        fragment nodeFragment on ${[...nodeType][0] + nodeType.slice(1)} {
             ${nodeProps}
         }
     `
