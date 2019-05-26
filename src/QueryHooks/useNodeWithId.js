@@ -10,16 +10,15 @@ const query = (fragment) => gql`
     ${fragment}
 `
 
-const useNodeWithId = ({ id, nodeType, nodeProps }) => {
+const useNodeWithId = ({ id, nodeType, nodeProps, mapDataToProps }) => {
 
     const fragment = gql`
         fragment nodeFragment on ${nodeType} {
             ${nodeProps}
         }
     `
-
-    const mapDataToProps = data => ({ node: data.node });
-    return useCheckedQuery(query(fragment), mapDataToProps, { variables: { id } });
+    const usedMapDataToProps = mapDataToProps || (data => ({ node: data.node }));
+    return useCheckedQuery(query(fragment), usedMapDataToProps, { variables: { id } });
 
 }
 
