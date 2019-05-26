@@ -1,7 +1,7 @@
 import React from 'react';
 import useNodeWithId from '../../QueryHooks/useNodeWithId';
 import typeMaps from './typeMaps';
-import MenuItemLink from '../MenuItemLink';
+import ListItemLink from '../ListItemLink';
 
 const SearchListItem = ({ id, type, createLink, name, onLoaded }) => {
     const { Component, nodeProps } = typeMaps[type];
@@ -10,9 +10,9 @@ const SearchListItem = ({ id, type, createLink, name, onLoaded }) => {
     if (error) return null;
     onLoaded();
     return (
-        <MenuItemLink to={createLink({type, name})}>
+        <ListItemLink to={createLink({type, name})}>
             <Component {...data.node} />
-        </MenuItemLink>
+        </ListItemLink>
     )
 }
 export default SearchListItem;
