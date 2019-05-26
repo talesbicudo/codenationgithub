@@ -6,6 +6,7 @@ const UserHeader = ({ name }) => {
 
     const fetchProps = `
         avatarUrl
+        login
         repositories(first: 1) {
             totalCount
         }
@@ -17,8 +18,8 @@ const UserHeader = ({ name }) => {
     return (
         <React.Fragment>
             <Header
-                avatar={<img alt={name} src={user.avatarUrl} style={{ minHeight: '100%' }} />}
-                name={name}
+                avatar={<img alt={user.login} src={user.avatarUrl} style={{ minHeight: '100%' }} />}
+                name={user.login}
                 totalCount={user.repositories.totalCount}
             />
 
