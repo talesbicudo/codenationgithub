@@ -37,6 +37,7 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
     const onBlurHandler = value => {
         dispatch(searchListCancel(value));
     }
+
     const selectedLanguages = searchValue ?
         languages.filter(({ name }) =>
             name.toString().toLowerCase().includes(searchValue.toLowerCase())
@@ -55,20 +56,19 @@ export const MainSearch = ({ initialValue, dispatch, searchValue = "", searchLis
             <SearchInput onFocus={onFocusHandler}
                 onBlur={onBlurHandler}
                 onChange={onChangeHandler}
-                placeholder="Usuário ou Linguagem"
+                placeholder="Pesquisar"
                 buttonText="procurar"
                 initialValue={initialValue}
             />
             <div style={{ visibility: searchListVisibility }}>
                 <SearchList items={items} createLink={createLink} onLoaded={loadedHandler} loading={searchLoading} />
             </div>
-
         </Fragment>
     )
 
 }
 
-const mapStateToProps = ({ SearchList }) => {
+const mapStateToProps = ({ SearchList, Profile }) => {
     const { value, visibility, loading } = SearchList;
     return {
         searchValue: value,
