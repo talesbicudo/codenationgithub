@@ -1,13 +1,12 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { v1 } from '../../styles/colors'
+import { v0 } from '../../styles/colors'
 
-const Nav = ({ color = v1, children }) => <nav css={css`
-    height: 4vh;
+const Nav = ({ color = v0, children }) => <nav css={css`
     background-color: ${color};
     display: flex;
-    flex-flow: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 `}>
     {children}
 </nav>
