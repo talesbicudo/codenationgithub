@@ -1,4 +1,3 @@
-import React from 'react';
 import UserHeader from './UserHeader'
 import LanguageHeader from './LanguageHeader';
 /** @jsx jsx */

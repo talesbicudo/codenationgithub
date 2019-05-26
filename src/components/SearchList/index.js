@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
-import { Link } from 'react-router-dom';
 import { v4, v3, v0 } from '../../styles/colors';
 import List from '@material-ui/core/List'
 import Box from '@material-ui/core/Box';
