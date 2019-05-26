@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import { GoSearch } from 'react-icons/go'
 
 const SearchInput = ({
     initialValue = "",
@@ -30,11 +33,30 @@ const SearchInput = ({
     const onBlurHandler = () => onBlur(value)
 
     return (
-        <form onSubmit={onSubmitHandler}>
-            <input type="text" onFocus={onFocusHandler}
+        <form onSubmit={onSubmitHandler} css={css`
+            width: 20rem;
+            display: flex;
+            border-radius: 0.3rem;
+            border: 0.1rem solid grey;
+            justify-content: space-between;
+            overflow: hidden;
+            * {
+                border: none;
+                padding:.2rem;
+            }
+            button {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                width: 2rem;
+            }
+        `
+        }>
+            <input type="search"
+                onFocus={onFocusHandler}
                 onBlur={onBlurHandler} value={value} placeholder={placeholder} onChange={onChangeHandler} />
-            <button type="submit">{buttonText}</button>
-        </form>
+            <button type="submit"><GoSearch /></button>
+        </form >
     )
 }
 
