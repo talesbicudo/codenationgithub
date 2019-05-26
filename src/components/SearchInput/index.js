@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import { GoSearch } from 'react-icons/go'
+import { v1 } from '../../styles/colors'
 
 const SearchInput = ({
     initialValue = "",
@@ -40,9 +41,11 @@ const SearchInput = ({
             border: 0.1rem solid grey;
             justify-content: space-between;
             overflow: hidden;
-            * {
+            background-color: ${v1};
+            > * {
                 border: none;
                 padding:.2rem;
+                background-color: ${v1};
             }
             input {
                 flex-grow: 2;
