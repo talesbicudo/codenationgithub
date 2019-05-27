@@ -1,9 +1,9 @@
 import ActionTypes from './ActionTypes';
-const Profile = (store = { id: null }, action) => {
+const Profile = (store = { name: '', type: 'User' }, action) => {
     const { type, payload } = action;
     switch (type) {
         case ActionTypes.REQUEST:
-            return { ...store, id: payload.id }
+            return payload;
         default:
             return store;
     }

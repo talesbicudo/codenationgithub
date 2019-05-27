@@ -1,6 +1,6 @@
 import ActionTypes from './ActionTypes'
 
-export const profileRequest = (name, id) => ({
+export const profileRequest = (name, type) => ({
     type: ActionTypes.REQUEST,
-    payload: { name, id }
+    payload: { name, type }
 })
