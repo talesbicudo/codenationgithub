@@ -4,7 +4,6 @@ import MainSearch from '../MainSearch';
 import Profile from '../Profile';
 import Nav from '../../components/Nav'
 import Container from '@material-ui/core/Container';
-import useRepositoriesByDateInterval from '../../QueryHooks/useRepositoriesByDateInteval';
 
 export const Home = ({ type = 'User', name = "" }) => {
     
