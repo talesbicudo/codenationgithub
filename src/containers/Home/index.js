@@ -6,7 +6,8 @@ import { profileRequest } from '../../redux/Profile/actionCreators'
 import MainSearch from '../MainSearch';
 import Profile from '../Profile';
 import Nav from '../../components/Nav'
-import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
+import RepositoryData from '../RepositoryData';
 
 export const Home = ({ dispatch, type = 'User', name = "" }) => {
 
@@ -15,13 +16,10 @@ export const Home = ({ dispatch, type = 'User', name = "" }) => {
     }, [name, type, dispatch])
 
     return (
-        <Container className="home" css={css`
+        <Box className="home" css={css`
             > * {
-                padding: .5rem 2rem;
+                padding: 2rem;
             } 
-            .nav__search {
-               width: 30vw; 
-            }
         `}>
             <Nav className="nav">
                 <div className="nav__search">
@@ -29,7 +27,8 @@ export const Home = ({ dispatch, type = 'User', name = "" }) => {
                 </div>
             </Nav>
             <Profile />
-        </Container>
+            <RepositoryData />
+        </Box>
     )
 }
 
