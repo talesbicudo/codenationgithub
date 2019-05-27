@@ -1,12 +1,19 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { useEffect } from 'react';
+import { connect } from 'react-redux'
+import { profileRequest } from '../../redux/Profile/actionCreators'
 import MainSearch from '../MainSearch';
 import Profile from '../Profile';
 import Nav from '../../components/Nav'
 import Container from '@material-ui/core/Container';
 
-export const Home = ({ type = 'User', name = "" }) => {
-    
+export const Home = ({ dispatch, type = 'User', name = "" }) => {
+
+    useEffect(() => {
+        dispatch(profileRequest(name, type));
+    }, [name, type, dispatch])
+
     return (
         <Container className="home" css={css`
             > * {
@@ -21,12 +28,10 @@ export const Home = ({ type = 'User', name = "" }) => {
                     <MainSearch initialValue={name} />
                 </div>
             </Nav>
-            <Profile type={type} name={name} />
+            <Profile />
         </Container>
     )
 }
 
 
-
-
-export default Home; 
+export default connect()(Home); 
