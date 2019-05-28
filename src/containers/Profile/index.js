@@ -3,7 +3,7 @@ import LanguageHeader from './LanguageHeader';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { v5, v1 } from '../../styles/colors';
-import { connect } from 'react-redux';
+
 export const Profile = ({ type = "User", name = "" }) => {
     return (
         <div className="profile__header" css={css`
@@ -16,6 +16,5 @@ export const Profile = ({ type = "User", name = "" }) => {
     )
 }
 
-const mapStateToProps = ({ Profile }) => ({ ...Profile })
 
-export default connect(mapStateToProps)(Profile);
+export default Profile;
