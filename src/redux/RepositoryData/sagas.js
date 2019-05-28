@@ -14,7 +14,7 @@ const query = gql`
         }`
 
 export default function* () {
-    yield takeLatest(ActionTypes.COMPLETE, handleComplete);
+    yield takeLatest(ActionTypes.REQUEST_ASYNC, handleComplete);
 }
 
 

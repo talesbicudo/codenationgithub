@@ -6,7 +6,7 @@ export const changeRequest = payload => ({
 })
 
 export const callSearchs = (searchs, client, by) => ({
-    type: ActionTypes.COMPLETE,
+    type: ActionTypes.REQUEST_ASYNC,
     payload: { searchs, client, by }
 })
 
