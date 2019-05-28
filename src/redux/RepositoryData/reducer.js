@@ -1,8 +1,8 @@
 import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
-const date = (new Date()).getFullYear() - 6;
+const date = (new Date()).getFullYear() - 5;
 
-export default (store = { data: [], selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 5 } }, action) => {
+export default (store = { data: [], selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 6 } }, action) => {
     const { type, payload } = action;
     switch (type) {
         case ActionTypes.SUCCESS:
@@ -21,8 +21,7 @@ export default (store = { data: [], selectedMonth: null, by: "YEARS", updateLoad
             return { ...store, loading: true }
         case ActionTypes.UPDATE:
             return { ...store, updateLoading: true }
-        default:
-            return store;
+        default: return store;
     }
 }
 
