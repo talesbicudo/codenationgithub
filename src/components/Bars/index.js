@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { ResponsiveBar } from '@nivo/bar';
 function fnum(x) {
@@ -26,10 +26,23 @@ function fnum(x) {
     return "1T+";
 }
 
-const Bars = ({ legend, ...props }) => (
-    <ResponsiveBar
+const Bars = ({ legend, delay=200, data, ...props }) => {
+
+
+    const zeroData = useMemo(() => data.map(data => ({ ...data, Total: 0 })), [data])
+
+    const [interactiveData, setInteractiveData] = useState(zeroData);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setInteractiveData(data)
+        }, delay)
+    }, [data, delay])
+
+    return (<ResponsiveBar
         {...props}
-       keys={['Total']}
+        data={interactiveData}
+        keys={['Total']}
         indexBy={'item'}
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
         padding={0.3}
@@ -61,7 +74,7 @@ const Bars = ({ legend, ...props }) => (
         animate={true}
         motionStiffness={90}
         motionDamping={15}
-        isInteractive
+        isInteractive={true}
         tooltip={({ indexValue, color }) => (
             <strong style={{ color }}>
                 Detalhes: {legend} {indexValue}
@@ -78,5 +91,6 @@ const Bars = ({ legend, ...props }) => (
             event.target.style.cursor = "pointer";
         }}
     />
-)
+    )
+}
 export default Bars; 
