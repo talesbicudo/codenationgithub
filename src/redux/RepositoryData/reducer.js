@@ -12,6 +12,11 @@ export default (store = { data: [], by: "YEARS", updateLoading: false, loading: 
                 updateLoading: false,
                 ...payload
             };
+        case ActionTypes.REQUEST_ASYNC:
+            return {
+                ...store,
+                ...payload
+            }
         case ActionTypes.REQUEST:
             return { ...store, loading: true }
         case ActionTypes.UPDATE:
@@ -31,7 +36,7 @@ function getDaysInMonth(month, year) {
     return days.map(day => ({ first: day }));
 }
 
-function getMonthsInYear(year) {
+function getMonthsInYear( year ) {
     var month = 0;
     var monthIntervals = [];
     while (month < 12) {
@@ -100,4 +105,4 @@ export const getSelectedQuery = (Profile, RepositoryData) => {
     return { selected: searchQuery(interval), all: totalSearchQuery(interval) };
 }
 
-export const getParents = ({RepositoryData}) => RepositoryData.parents;
+export const getParents = ({ RepositoryData }) => RepositoryData.parents;

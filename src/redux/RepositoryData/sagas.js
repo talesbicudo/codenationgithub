@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
 import { getParents } from './reducer'
-
 const query = gql`
         query ($search: String!){
             search(type: REPOSITORY, query: $search first: 1) {
@@ -13,59 +12,77 @@ const query = gql`
 
 export default function* () {
     yield takeLatest(ActionTypes.REQUEST, handleRequest);
+    yield takeLatest(ActionTypes.COMPLETE, handleComplete);
 }
 
 export function* handleRequest({ type, payload }) {
-    const { by, searchs, client } = payload;
-    const rawData = yield all(searchs.map(search => client.query({ query, variables: { search: search.value } })));
-    const data = rawData.map((data, i) => ({ interval: searchs[i].interval, Total: data.data.search.repositoryCount }));
+    const { by } = payload;
     switch (by) {
         case ByTypes.DAYS:
-            yield call(dayRequest, data, payload);
+            yield call(dayRequest, payload);
             break;
         case ByTypes.MONTHS:
-            yield call(monthRequest, data, payload);
+            yield call(monthRequest, payload);
             break;
         case ByTypes.YEARS:
-            yield call(yearRequest, data, payload);
+            yield call(yearRequest, payload);
             break;
         default:
-            yield put({ type: ActionTypes.Error });
+            yield put({ type: ActionTypes.ERRR });
     }
 }
 
-function* dayRequest(data, { by, parent, selected }) {
+
+const itemSelection = (by, interval) => {
+    switch (by) {
+        case ByTypes.DAYS:
+            return interval.first.getUTCDate();
+        case ByTypes.MONTHS:
+            return interval.first.getMonth();
+        case ByTypes.YEARS:
+            return interval.first.getFullYear();
+        default:
+            return null
+    }
+}
+
+function* handleComplete({ type, payload: { client, searchs, by } }) {
+    const rawData = yield all(searchs.map(search => client.query({ query, variables: { search: search.value } })));
+    const data = rawData.map((data, i) => ({
+        item: `${itemSelection(by, searchs[i].interval)}`,
+        Total: data.data.search.repositoryCount
+    }));
+    yield put({ type: ActionTypes.SUCCESS, payload: { data } })
+}
+
+function* dayRequest({ by, parent, selected }) {
     const parents = yield select(getParents);
     yield put({
-        type: ActionTypes.SUCCESS, payload: {
+        type: ActionTypes.REQUEST_ASYNC, payload: {
             by,
             parents: { ...parents, month: parent },
-            data,
             selected,
         }
     })
 }
 
-function* monthRequest(data, { by, parent, selected }) {
+function* monthRequest({ by, parent, selected }) {
     const parents = yield select(getParents);
     yield put({
-        type: ActionTypes.SUCCESS, payload: {
-            data,
+        type: ActionTypes.REQUEST_ASYNC, payload: {
             by,
             selected,
-            parents: parent ? { year: parent, month: null } : { year: parents.year, month: null }
+            parents: parent ? { year: parent, month: null } : {...parents, month: null }
         }
     })
 }
 
-function* yearRequest(intervalData, { by, selected }) {
-    const data = intervalData.map(data => ({ ...data, item: data.interval.first.getFullYear().toString() }))
+function* yearRequest({ by, selected }) {
     yield put({
-        type: ActionTypes.SUCCESS, payload: {
+        type: ActionTypes.REQUEST_ASYNC, payload: {
             selected,
             parents: { year: null, month: null },
             by,
-            data
         }
     })
 }

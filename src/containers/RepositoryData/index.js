@@ -1,52 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import Box from '@material-ui/core/Box'
-import { changeRequest } from '../../redux/RepositoryData/ActionCreators';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { changeRequest, callSearchs } from '../../redux/RepositoryData/ActionCreators';
 import { connect } from 'react-redux';
 import { getDateIntervalsQueries } from '../../redux/RepositoryData/reducer';
 import { useApolloClient } from 'react-apollo-hooks';
-import RepositoryBars from '../../components/RepositoryBars';
 import BY from '../../redux/RepositoryData/ByTypes';
+import RepositoryBars from './RepositoryBars';
+import RepositoryBackButton from './RepositoryBackButton';
 
-export const DataView = ({ name, data, type, by, selected, repositoryLoading, searchs, dispatch }) => {
-    const client = useApolloClient();
+export const DataView = ({ name, data, type, by, selected, repositoryLoading, dispatch, parents, range }) => {
+
     useEffect(() => {
-        if (name && type) {
-            dispatch(changeRequest(by, selected, null, searchs, client))
-        }
-    }, [name, type]);
+        dispatch(changeRequest(BY.YEARS));
+    }, [name, type, dispatch])
 
-    const clickHandler = ({data}) => {
-        switch (by) {
-            case BY.DAYS:
-                return null;
-            case BY.MONTHS:
-                return monthClickHandler(data);
-            case BY.YEARS:
-                return yearClickHandler(data);
-            default:
-                return null;
-        }
-    }
+    const client = useApolloClient();
 
-    const monthClickHandler = ({item}) => {
-        return null;
-    }
+    const searchs = useMemo(() =>
+        getDateIntervalsQueries({ name, type }, { by, parents, range }), [name, type, by, parents, range])
 
-    const yearClickHandler = ({item}) => {
-    }
+    const successDispatch = useCallback(() => {
+        dispatch(callSearchs(searchs, client, by))
+    }, [dispatch, by, searchs, client])
+
+
+    useEffect(() => {
+        successDispatch()
+    }, [successDispatch]);
+
 
     if (repositoryLoading) return <CircularProgress />
     return <Box style={{ height: '50vh' }}>
-        <RepositoryBars data={data} onClick={clickHandler} legend={'Ano'} />
+        <RepositoryBackButton dispatch={dispatch} by={by} parents={parents}/>
+        <RepositoryBars by={by} dispatch={dispatch} data={data} />
     </Box>
 }
 
-const mapDataToProps = ({ Profile, RepositoryData }) => ({
+const mapDataToProps = ({ RepositoryData }, { name, type }) => ({
     ...RepositoryData,
-    ...Profile,
     repositoryLoading: RepositoryData.loading,
-    searchs: getDateIntervalsQueries(Profile, RepositoryData),
+    searchs: getDateIntervalsQueries({ name, type }, RepositoryData),
 })
 
 export default connect(mapDataToProps)(DataView);

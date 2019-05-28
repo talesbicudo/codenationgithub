@@ -26,7 +26,7 @@ function fnum(x) {
 	return "1T+";
 }
 
-const RepositoryBars = ({ data, legend, onClick }) => (
+const Bars = ({ data, legend, onClick }) => (
     <ResponsiveBar
         data={data}
         keys={['Total']}
@@ -62,4 +62,4 @@ const RepositoryBars = ({ data, legend, onClick }) => (
         onClick={onClick}
     />
 )
-export default RepositoryBars; 
+export default Bars; 

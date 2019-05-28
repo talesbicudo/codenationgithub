@@ -1,9 +1,14 @@
 import ActionTypes from './ActionTypes';
 
-
-export const changeRequest = (by, selected, parent, searchs, client) => ({
+export const changeRequest = (by, selected, parent) => ({
     type: ActionTypes.REQUEST,
-    payload: { searchs, client, by, parent, selected }
+    payload: { by, parent, selected }
+})
+
+
+export const callSearchs = (searchs, client, by) => ({
+    type: ActionTypes.COMPLETE,
+    payload: { searchs, client, by }
 })
 
 export const updateInterval = (first, last, client) => ({
