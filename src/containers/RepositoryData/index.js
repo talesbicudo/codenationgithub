@@ -36,9 +36,9 @@ export const DataView = ({ name, data, type, by, selectedMonth, selectedYear, re
     if (repositoryLoading) return <CircularProgress />
 
     return <Box style={{ height: '50vh' }}>
-        <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
         {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={dispatch} data={data} />}
         {by === BY.DAYS && <RepositoryCalendar data={data} />}
+        <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
     </Box>
 }
 
