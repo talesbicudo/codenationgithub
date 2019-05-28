@@ -2,7 +2,7 @@ import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
 const date = (new Date()).getFullYear() - 6;
 
-export default (store = { data: [], by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 5 } }, action) => {
+export default (store = { data: [], selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 5 } }, action) => {
     const { type, payload } = action;
     switch (type) {
         case ActionTypes.SUCCESS:
@@ -27,14 +27,23 @@ export default (store = { data: [], by: "YEARS", updateLoading: false, loading: 
 }
 
 
-function getDaysInYear(year, gap = 5) {
-    var monthIntervals = [];
-    var i = 0;
-    do {
-        monthIntervals.push({ first: new Date(year, 0, gap * i), last: new Date(year, 0, gap + gap * i) })
-        i++
+function getDaysInMonth(month, year) {
+    var date = new Date(year, month, 1);
+    var days = [];
+    while (date.getMonth() === month) {
+        days.push(new Date(date));
+        date.setDate(date.getDate() + 1);
     }
-    while ([...monthIntervals].pop().last.getFullYear() === year)
+    return days.map(day => ({ first: day }));
+}
+
+function getMonthsInYear(year) {
+    var month = 0;
+    var monthIntervals = [];
+    while (month < 12) {
+        monthIntervals.push({ first: new Date(year, month, 1), last: new Date(year, month + 1, 0) })
+        month++
+    }
     return monthIntervals;
 }
 
@@ -60,14 +69,16 @@ const getSearchQuery = (Profile) => ({ first, last }) => {
 }
 
 export const getDateIntervalsQueries = (Profile, RepositoryData) => {
-    const { by, selectedYear, range: { first, last } } = RepositoryData;
+    const { by, selectedYear, selectedMonth, range: { first, last } } = RepositoryData;
     const getSearchQueries = (interval) =>
         ({ value: getSearchQuery(Profile)(interval), interval });
     switch (by) {
         case ByTypes.MONTHS:
-            return getDaysInYear(selectedYear).map(getSearchQueries);
+            return getMonthsInYear(selectedYear).map(getSearchQueries);
         case ByTypes.YEARS:
             return getYears(first, last).map(getSearchQueries);
+        case ByTypes.DAYS:
+            return getDaysInMonth(selectedYear, selectedMonth)
         default:
             return null
     }
