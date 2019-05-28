@@ -11,28 +11,30 @@ import RepositoryBackButton from './RepositoryBackButton';
 import Viewer from '../../Contexts/Viewer';
 import RepositoryCalendar from './RepositoryCalendar';
 import { useSnackbar } from 'notistack';
+import dispatchHandler from './dispatchHandler';
 
 export const DataView = ({ name, data, type, by, error, selectedMonth, selectedYear, repositoryLoading, dispatch, range }) => {
 
     const { login } = useContext(Viewer);
     const { enqueueSnackbar } = useSnackbar();
+
+    const payloadDispatch = useCallback((by, selected) => {
+        dispatch(changeRequest(dispatchHandler(by, selected)));
+    }, [dispatch])
+
     useEffect(() => {
-        dispatch(changeRequest(BY.YEARS));
-    }, [name, type, dispatch])
+        payloadDispatch(BY.YEARS);
+    }, [name, type, dispatch, payloadDispatch])
 
     const client = useApolloClient();
 
     const searchs = useMemo(() =>
         getDateIntervalsQueries({ name: name || login, type }, { by, selectedYear, selectedMonth, range }),
         [name, selectedYear, login, type, by, range, selectedMonth])
-    const successDispatch = useCallback(() => {
-        dispatch(callSearchs(searchs, client, by))
-    }, [dispatch, by, searchs, client])
-
 
     useEffect(() => {
-        successDispatch()
-    }, [successDispatch]);
+        dispatch(callSearchs(searchs, client, by))
+    }, [searchs, client, by, dispatch]);
 
 
     if (repositoryLoading) return <CircularProgress />
@@ -41,9 +43,9 @@ export const DataView = ({ name, data, type, by, error, selectedMonth, selectedY
     }
 
     return <Box style={{ height: '50vh' }}>
-        {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={dispatch} data={data} />}
+        {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={payloadDispatch} data={data} />}
         {by === BY.DAYS && <RepositoryCalendar data={data} />}
-        <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
+        <RepositoryBackButton dispatch={payloadDispatch} by={by} selectedYear={selectedYear} />
     </Box>
 }
 

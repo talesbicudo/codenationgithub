@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-import { changeRequest } from '../../redux/RepositoryData/ActionCreators';
 import Bars from '../../components/Bars';
 import BY from '../../redux/RepositoryData/ByTypes';
 
@@ -9,10 +8,10 @@ const RepositoryBars = ({ data, by, dispatch }) => {
     const clickHandler = useCallback(({ data }) => {
         switch (by) {
             case BY.YEARS:
-                dispatch(changeRequest(BY.MONTHS, +data.item))
+                dispatch(BY.MONTHS, +data.item)
                 break;
             case BY.MONTHS:
-                dispatch(changeRequest(BY.DAYS, data.i))
+                dispatch(BY.DAYS, data.i)
                 break;
             default:
                 break;

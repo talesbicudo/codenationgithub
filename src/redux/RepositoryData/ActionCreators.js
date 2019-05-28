@@ -1,10 +1,9 @@
 import ActionTypes from './ActionTypes';
 
-export const changeRequest = (by, selected) => ({
+export const changeRequest = payload => ({
     type: ActionTypes.REQUEST,
-    payload: { by, selected }
+    payload
 })
-
 
 export const callSearchs = (searchs, client, by) => ({
     type: ActionTypes.COMPLETE,

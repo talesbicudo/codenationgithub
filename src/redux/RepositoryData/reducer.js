@@ -12,18 +12,13 @@ export default (store = { data: [], error: null, selectedMonth: null, by: "YEARS
                 updateLoading: false,
                 ...payload
             };
-        case ActionTypes.REQUEST_ASYNC:
-            return {
-                ...store,
-                ...payload
-            }
         case ActionTypes.ERROR:
             return {
                 ...store,
                 error: payload.error
             }
         case ActionTypes.REQUEST:
-            return { ...store, loading: true }
+            return { ...store, ...payload, loading: true }
         case ActionTypes.UPDATE:
             return { ...store, updateLoading: true }
         default: return store;

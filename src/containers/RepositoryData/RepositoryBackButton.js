@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react';
 import BackButton from '../../components/BackButton';
-import { changeRequest } from '../../redux/RepositoryData/ActionCreators'
 import BY from '../../redux/RepositoryData/ByTypes';
 
 const RepositoryBackButton = ({ by, selectedYear, dispatch }) => {
     const clickHandler = useCallback(() => {
         switch (by) {
             case BY.MONTHS:
-                dispatch(changeRequest(BY.YEARS, selectedYear))
+                dispatch(BY.YEARS, selectedYear)
                 break;
             case BY.DAYS:
-                dispatch(changeRequest(BY.MONTHS));
+                dispatch(BY.MONTHS);
                 break;
             default:
                 break;
