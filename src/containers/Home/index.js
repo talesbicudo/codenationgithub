@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
 import { connect } from 'react-redux'
@@ -15,7 +14,6 @@ export const Home = ({ dispatch, type = 'User', name = "" }) => {
     const { loading, viewer } = useViewer();
 
     if (loading) return null
-    console.log(viewer);
 
     return (
         <Viewer.Provider value={viewer}>
