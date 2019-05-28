@@ -9,6 +9,8 @@ const RepositoryBackButton = ({ by, selectedYear, dispatch }) => {
             case BY.MONTHS:
                 dispatch(changeRequest(BY.YEARS, selectedYear))
                 break;
+            case BY.DAYS:
+                dispatch(changeRequest(BY.MONTHS));
             default:
                 break;
         }

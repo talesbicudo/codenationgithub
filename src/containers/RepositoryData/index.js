@@ -11,7 +11,7 @@ import RepositoryBackButton from './RepositoryBackButton';
 import Viewer from '../../Contexts/Viewer';
 import RepositoryCalendar from './RepositoryCalendar';
 
-export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading, dispatch, range }) => {
+export const DataView = ({ name, data, type, by, selectedMonth, selectedYear, repositoryLoading, dispatch, range }) => {
     const { login } = useContext(Viewer);
 
     useEffect(() => {
@@ -21,8 +21,8 @@ export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading
     const client = useApolloClient();
 
     const searchs = useMemo(() =>
-        getDateIntervalsQueries({ name: name || login, type }, { by, selectedYear, range }),
-        [name, selectedYear, login, type, by, range])
+        getDateIntervalsQueries({ name: name || login, type }, { by, selectedYear, selectedMonth, range }),
+        [name, selectedYear, login, type, by, range, selectedMonth])
     const successDispatch = useCallback(() => {
         dispatch(callSearchs(searchs, client, by))
     }, [dispatch, by, searchs, client])
@@ -34,10 +34,11 @@ export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading
 
 
     if (repositoryLoading) return <CircularProgress />
+
     return <Box style={{ height: '50vh' }}>
         <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
-        {by === BY.YEARS && <RepositoryBars dispatch={dispatch} data={data} />}
-        {by === BY.MONTHS && <RepositoryCalendar dispatch={dispatch} data={data} />}
+        {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={dispatch} data={data} />}
+        {by === BY.DAYS && <RepositoryCalendar data={data} />}
     </Box>
 }
 

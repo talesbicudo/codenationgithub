@@ -34,6 +34,7 @@ function getDaysInMonth(month, year) {
         days.push(new Date(date));
         date.setDate(date.getDate() + 1);
     }
+
     return days.map(day => ({ first: day }));
 }
 
@@ -78,7 +79,7 @@ export const getDateIntervalsQueries = (Profile, RepositoryData) => {
         case ByTypes.YEARS:
             return getYears(first, last).map(getSearchQueries);
         case ByTypes.DAYS:
-            return getDaysInMonth(selectedYear, selectedMonth)
+            return getDaysInMonth(selectedMonth, selectedYear).map(getSearchQueries);
         default:
             return null
     }
