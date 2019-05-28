@@ -1,33 +1,31 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import { connect } from 'react-redux'
 import MainSearch from '../MainSearch';
 import Profile from '../Profile';
 import Nav from '../../components/Nav'
-import Container from '@material-ui/core/Container';
-import useRepositoriesByDateInterval from '../../QueryHooks/useRepositoriesByDateInteval';
+import Box from '@material-ui/core/Box';
+import RepositoryData from '../RepositoryData';
 
-export const Home = ({ type = 'User', name = "" }) => {
-    
+export const Home = ({ dispatch, type = 'User', name = "" }) => {
+
+
     return (
-        <Container className="home" css={css`
+        <Box className="home" css={css`
             > * {
-                padding: .5rem 2rem;
+                padding: 2rem;
             } 
-            .nav__search {
-               width: 30vw; 
-            }
         `}>
             <Nav className="nav">
                 <div className="nav__search">
                     <MainSearch initialValue={name} />
                 </div>
             </Nav>
-            <Profile type={type} name={name} />
-        </Container>
+            <Profile type={type} name={name}/>
+            <RepositoryData type={type} name={name}/>
+        </Box>
     )
 }
 
 
-
-
-export default Home; 
+export default connect()(Home); 

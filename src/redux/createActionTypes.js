@@ -1,6 +1,6 @@
 /** Declare any other action type here * */
 
-const TYPES = ["REQUEST", "SUCCESS", "FAILURE", "CANCEL", "RESET"];
+const TYPES = ["REQUEST", "UPDATE", "COMPLETE", "SUCCESS", "FAILURE", "CANCEL", "RESET"];
 
 const createActionTypes = base => {
   const ref = {};

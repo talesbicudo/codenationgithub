@@ -1,3 +1,3 @@
 import createActionTypes from '../createActionTypes';
 
-export default createActionTypes('PROFILE');
+export default createActionTypes("REPO_DATA");
