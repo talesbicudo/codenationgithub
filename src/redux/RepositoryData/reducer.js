@@ -2,7 +2,7 @@ import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
 const date = (new Date()).getFullYear() - 5;
 
-export default (store = { data: [], error: null, selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 6 } }, action) => {
+export default (store = { data: [], search: "", error: null, selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 6 } }, action) => {
     const { type, payload } = action;
     switch (type) {
         case ActionTypes.SUCCESS:
@@ -59,7 +59,7 @@ const twoDigits = number => ("0" + number).slice(-2);
 export const gitIsoDate = date =>
     `${date.getFullYear()}-${twoDigits(date.getUTCMonth() + 1)}-${twoDigits(date.getUTCDate())}`
 
-const getSearchQuery = (Profile) => ({ first, last }) => {
+export const getSearchQuery = (Profile) => ({ first, last }) => {
     const { name, type } = Profile;
     const [lowerName, lowerType] = [name && name.toLowerCase(), type && type.toLowerCase()];
     const withLast = last ? `..${gitIsoDate(last)}` : '';
