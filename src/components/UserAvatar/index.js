@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         height: '10rem',
         width: '10rem'
     }
+    
 });
 
 const LanguageAvatar = ({ name, big, avatarUrl }) => {
