@@ -27,7 +27,7 @@ const SearchInput = ({
 
     const onSubmitHandler = event => {
         event.preventDefault();
-        onSubmit(event);
+        onSubmit(value, event);
     }
 
     const onFocusHandler = event => onFocus(value, event);
