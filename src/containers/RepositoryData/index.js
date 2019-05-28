@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from 'react';
+import React, { useContext, useEffect, useMemo, useCallback } from 'react';
 import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { changeRequest, callSearchs } from '../../redux/RepositoryData/ActionCreators';
@@ -8,8 +8,10 @@ import { useApolloClient } from 'react-apollo-hooks';
 import BY from '../../redux/RepositoryData/ByTypes';
 import RepositoryBars from './RepositoryBars';
 import RepositoryBackButton from './RepositoryBackButton';
+import Viewer from '../../Contexts/Viewer';
 
 export const DataView = ({ name, data, type, by, selected, repositoryLoading, dispatch, parents, range }) => {
+    const { login } = useContext(Viewer);
 
     useEffect(() => {
         dispatch(changeRequest(BY.YEARS));
@@ -18,7 +20,7 @@ export const DataView = ({ name, data, type, by, selected, repositoryLoading, di
     const client = useApolloClient();
 
     const searchs = useMemo(() =>
-        getDateIntervalsQueries({ name, type }, { by, parents, range }), [name, type, by, parents, range])
+        getDateIntervalsQueries({ name: name || login, type }, { by, parents, range }), [name, login, type, by, parents, range])
 
     const successDispatch = useCallback(() => {
         dispatch(callSearchs(searchs, client, by))
@@ -32,7 +34,7 @@ export const DataView = ({ name, data, type, by, selected, repositoryLoading, di
 
     if (repositoryLoading) return <CircularProgress />
     return <Box style={{ height: '50vh' }}>
-        <RepositoryBackButton dispatch={dispatch} by={by} parents={parents}/>
+        <RepositoryBackButton dispatch={dispatch} by={by} parents={parents} />
         <RepositoryBars by={by} dispatch={dispatch} data={data} />
     </Box>
 }
