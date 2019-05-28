@@ -9,6 +9,7 @@ import BY from '../../redux/RepositoryData/ByTypes';
 import RepositoryBars from './RepositoryBars';
 import RepositoryBackButton from './RepositoryBackButton';
 import Viewer from '../../Contexts/Viewer';
+import RepositoryCalendar from './RepositoryCalendar';
 
 export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading, dispatch, range }) => {
     const { login } = useContext(Viewer);
@@ -21,7 +22,7 @@ export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading
 
     const searchs = useMemo(() =>
         getDateIntervalsQueries({ name: name || login, type }, { by, selectedYear, range }),
-         [name, selectedYear, login, type, by, range])
+        [name, selectedYear, login, type, by, range])
     const successDispatch = useCallback(() => {
         dispatch(callSearchs(searchs, client, by))
     }, [dispatch, by, searchs, client])
@@ -35,7 +36,8 @@ export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading
     if (repositoryLoading) return <CircularProgress />
     return <Box style={{ height: '50vh' }}>
         <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
-        <RepositoryBars by={by} dispatch={dispatch} data={data} />
+        {by === BY.YEARS && <RepositoryBars dispatch={dispatch} data={data} />}
+        {by === BY.MONTHS && <RepositoryCalendar dispatch={dispatch} data={data} />}
     </Box>
 }
 
