@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux'
 import MainSearch from '../MainSearch';
 import Profile from '../Profile';
+import RepositorySelectedList from '../RepositorySelectedList';
 import Nav from '../../components/Nav'
 import ViewerInfo from '../../components/ViewerInfo';
-import Box from '@material-ui/core/Box';
 import RepositoryData from '../RepositoryData';
 import useViewer from '../../QueryHooks/useViewer';
 import Viewer from '../../Contexts/Viewer';
@@ -31,6 +32,7 @@ export const Home = ({ dispatch, type = 'User', name = "" }) => {
                 </Nav>
                 <Profile type={type} name={name} />
                 <RepositoryData type={type} name={name} />
+                <RepositorySelectedList itemsPerPage={5} />
             </Box>
 
 
