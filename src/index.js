@@ -12,6 +12,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleWare from 'redux-saga';
 import rootReducers from "./redux/rootReducers";
 import rootSagas from "./redux/rootSagas";
+import { SnackbarProvider } from 'notistack';
 const sagaMiddleWare = createSagaMiddleWare();
 const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(sagaMiddleWare)));
 sagaMiddleWare.run(rootSagas);
@@ -20,7 +21,9 @@ gql.disableFragmentWarnings();
 ReactDOM.render(
     <Provider store={store}>
         <ApolloProvider client={client}>
-            <App />
+            <SnackbarProvider>
+                <App />
+            </SnackbarProvider>
         </ApolloProvider>
     </Provider>,
     document.getElementById('root'));

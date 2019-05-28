@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 
 const query = (fragment) => gql`
     query ($id: ID!){
-        node(id: $id) {
+        node(idd: $id) {
            ...nodeFragment 
         }
     }
