@@ -5,22 +5,14 @@ import BY from '../../redux/RepositoryData/ByTypes';
 
 const legends = { [BY.MONTHS]: 'Mês', [BY.YEARS]: "Ano", [BY.DAYS]: "Dia" };
 
-const RepositoryBars = ({ data,  dispatch, by }) => {
+const RepositoryBars = ({ data, dispatch, by }) => {
     const clickHandler = useCallback(({ data }) => {
 
-        const monthClickHandler = ({ item }) => {
-            dispatch(changeRequest(BY.DAYS, 0, +item))
-        }
-
         const yearClickHandler = ({ item }) => {
-            dispatch(changeRequest(BY.MONTHS, 0, +item))
+            dispatch(changeRequest(BY.MONTHS,+item))
         }
 
         switch (by) {
-            case BY.DAYS:
-                return null;
-            case BY.MONTHS:
-                return monthClickHandler(data);
             case BY.YEARS:
                 return yearClickHandler(data);
             default:

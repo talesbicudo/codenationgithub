@@ -10,7 +10,7 @@ import RepositoryBars from './RepositoryBars';
 import RepositoryBackButton from './RepositoryBackButton';
 import Viewer from '../../Contexts/Viewer';
 
-export const DataView = ({ name, data, type, by, selected, repositoryLoading, dispatch, parents, range }) => {
+export const DataView = ({ name, data, type, by, selectedYear, repositoryLoading, dispatch, range }) => {
     const { login } = useContext(Viewer);
 
     useEffect(() => {
@@ -20,8 +20,8 @@ export const DataView = ({ name, data, type, by, selected, repositoryLoading, di
     const client = useApolloClient();
 
     const searchs = useMemo(() =>
-        getDateIntervalsQueries({ name: name || login, type }, { by, parents, range }), [name, login, type, by, parents, range])
-
+        getDateIntervalsQueries({ name: name || login, type }, { by, selectedYear, range }),
+         [name, selectedYear, login, type, by, range])
     const successDispatch = useCallback(() => {
         dispatch(callSearchs(searchs, client, by))
     }, [dispatch, by, searchs, client])
@@ -34,7 +34,7 @@ export const DataView = ({ name, data, type, by, selected, repositoryLoading, di
 
     if (repositoryLoading) return <CircularProgress />
     return <Box style={{ height: '50vh' }}>
-        <RepositoryBackButton dispatch={dispatch} by={by} parents={parents} />
+        <RepositoryBackButton dispatch={dispatch} by={by} selectedYear={selectedYear} />
         <RepositoryBars by={by} dispatch={dispatch} data={data} />
     </Box>
 }
@@ -42,7 +42,6 @@ export const DataView = ({ name, data, type, by, selected, repositoryLoading, di
 const mapDataToProps = ({ RepositoryData }, { name, type }) => ({
     ...RepositoryData,
     repositoryLoading: RepositoryData.loading,
-    searchs: getDateIntervalsQueries({ name, type }, RepositoryData),
 })
 
 export default connect(mapDataToProps)(DataView);

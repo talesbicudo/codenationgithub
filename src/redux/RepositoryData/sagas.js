@@ -1,8 +1,8 @@
-import { all, call, takeLatest, put, select } from 'redux-saga/effects';
+import { all, call, takeLatest, put } from 'redux-saga/effects';
 import gql from 'graphql-tag';
 import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
-import { getParents } from './reducer'
+import { gitIsoDate } from './reducer'
 const query = gql`
         query ($search: String!){
             search(type: REPOSITORY, query: $search first: 1) {
@@ -18,9 +18,7 @@ export default function* () {
 export function* handleRequest({ type, payload }) {
     const { by } = payload;
     switch (by) {
-        case ByTypes.DAYS:
-            yield call(dayRequest, payload);
-            break;
+
         case ByTypes.MONTHS:
             yield call(monthRequest, payload);
             break;
@@ -35,10 +33,8 @@ export function* handleRequest({ type, payload }) {
 
 const itemSelection = (by, interval) => {
     switch (by) {
-        case ByTypes.DAYS:
-            return interval.first.getUTCDate();
         case ByTypes.MONTHS:
-            return interval.first.getMonth();
+            return gitIsoDate(interval.first);
         case ByTypes.YEARS:
             return interval.first.getFullYear();
         default:
@@ -48,40 +44,30 @@ const itemSelection = (by, interval) => {
 
 function* handleComplete({ type, payload: { client, searchs, by } }) {
     const rawData = yield all(searchs.map(search => client.query({ query, variables: { search: search.value } })));
-    const data = rawData.map((data, i) => ({
-        item: `${itemSelection(by, searchs[i].interval)}`,
-        Total: data.data.search.repositoryCount
-    }));
+    const data = rawData.map((data, i) => {
+        return {
+            item: `${itemSelection(by, searchs[i].interval)}`,
+            Total: data.data.search.repositoryCount,
+            raw: searchs[i]
+        }
+    });
     yield put({ type: ActionTypes.SUCCESS, payload: { data } })
 }
 
-function* dayRequest({ by, parent, selected }) {
-    const parents = yield select(getParents);
+
+function* monthRequest({ by, selectedYear }) {
     yield put({
         type: ActionTypes.REQUEST_ASYNC, payload: {
             by,
-            parents: { ...parents, month: parent },
-            selected,
+            selectedYear,
         }
     })
 }
 
-function* monthRequest({ by, parent, selected }) {
-    const parents = yield select(getParents);
+function* yearRequest({ by }) {
     yield put({
         type: ActionTypes.REQUEST_ASYNC, payload: {
-            by,
-            selected,
-            parents: parent ? { year: parent, month: null } : {...parents, month: null }
-        }
-    })
-}
-
-function* yearRequest({ by, selected }) {
-    yield put({
-        type: ActionTypes.REQUEST_ASYNC, payload: {
-            selected,
-            parents: { year: null, month: null },
+            selectedYear: null,
             by,
         }
     })

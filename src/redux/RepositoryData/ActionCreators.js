@@ -1,8 +1,8 @@
 import ActionTypes from './ActionTypes';
 
-export const changeRequest = (by, selected, parent) => ({
+export const changeRequest = (by, selectedYear) => ({
     type: ActionTypes.REQUEST,
-    payload: { by, parent, selected }
+    payload: { by, selectedYear }
 })
 
 
