@@ -10,10 +10,12 @@ import RepositoryBars from './RepositoryBars';
 import RepositoryBackButton from './RepositoryBackButton';
 import Viewer from '../../Contexts/Viewer';
 import RepositoryCalendar from './RepositoryCalendar';
+import { useSnackbar } from 'notistack';
 
-export const DataView = ({ name, data, type, by, selectedMonth, selectedYear, repositoryLoading, dispatch, range }) => {
+export const DataView = ({ name, data, type, by, error, selectedMonth, selectedYear, repositoryLoading, dispatch, range }) => {
+
     const { login } = useContext(Viewer);
-
+    const { enqueueSnackbar } = useSnackbar();
     useEffect(() => {
         dispatch(changeRequest(BY.YEARS));
     }, [name, type, dispatch])
@@ -34,6 +36,9 @@ export const DataView = ({ name, data, type, by, selectedMonth, selectedYear, re
 
 
     if (repositoryLoading) return <CircularProgress />
+    if (error) {
+        enqueueSnackbar(error);
+    }
 
     return <Box style={{ height: '50vh' }}>
         {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={dispatch} data={data} />}

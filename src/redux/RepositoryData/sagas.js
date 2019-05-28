@@ -51,15 +51,19 @@ const itemSelection = (by, interval, i) => {
 }
 
 function* handleComplete({ type, payload: { client, searchs, by } }) {
-    const rawData = yield all(searchs.map(search => client.query({ query, variables: { search: search.value } })));
-    const data = rawData.map((data, i) => {
-        return {
-            item: `${itemSelection(by, searchs[i].interval, i)}`,
-            Total: data.data.search.repositoryCount,
-            i
-        }
-    });
-    yield put({ type: ActionTypes.SUCCESS, payload: { data } })
+    try {
+        const rawData = yield all(searchs.map(search => client.query({ query, variables: { search: search.value } })));
+        const data = rawData.map((data, i) => {
+            return {
+                item: `${itemSelection(by, searchs[i].interval, i)}`,
+                Total: data.data.search.repositoryCount,
+                i
+            }
+        });
+        yield put({ type: ActionTypes.SUCCESS, payload: { data } })
+    } catch (error) {
+        yield put({ type: ActionTypes.ERROR, payload: { error } })
+    }
 }
 
 
