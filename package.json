@@ -21,6 +21,7 @@
     "notistack": "^0.8.5",
     "react": "^16.8.6",
     "react-apollo-hooks": "^0.4.5",
+    "react-compound-slider": "^2.0.0",
     "react-dom": "^16.8.6",
     "react-icons": "^3.7.0",
     "react-image": "^2.1.1",
