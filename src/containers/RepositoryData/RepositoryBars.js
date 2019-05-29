@@ -1,17 +1,18 @@
 import React, { useCallback, useMemo } from 'react';
+import Box from '@material-ui/core/Box';
 import Bars from '../../components/Bars';
 import BY from '../../redux/RepositoryData/ByTypes';
 
 const legends = { [BY.MONTHS]: "Mês", [BY.YEARS]: "Ano" }
 const months = ["jan.", "fev.", "mar.", "abr.", "maio", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez"];
 
-const RepositoryBars = ({ data, by, dispatch }) => {
+const RepositoryBars = ({ data, by, dispatch, range }) => {
     const usableData = useMemo(() => {
         if (by === BY.MONTHS) {
-            return data.map(({ total }, i) => ({index: i, item: months[i], Total: +total }))
+            return data.map(({ total }, i) => ({ index: i, item: months[i], Total: +total }))
         }
         return data.map(({ interval, total }) => ({ item: "" + interval.first.getFullYear(), Total: +total }))
-    },[data, by])
+    }, [data, by])
 
     const clickHandler = useCallback(({ data }) => {
         switch (by) {
@@ -25,7 +26,11 @@ const RepositoryBars = ({ data, by, dispatch }) => {
                 break;
         }
     }, [dispatch, by])
-    return <Bars data={usableData} onClick={clickHandler} legend={legends[by]} />
+    return (
+        <Box display="flex" alignItems="center" height="65vh" width="100%">
+            <Bars data={usableData} onClick={clickHandler} legend={legends[by]} />
+        </Box>
+    )
 }
 
 export default RepositoryBars;

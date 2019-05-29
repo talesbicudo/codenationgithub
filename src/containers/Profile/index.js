@@ -13,6 +13,7 @@ export const Profile = ({ type = "User", name = "" }) => {
         <div className="profile__header" css={css`
                 background-color: ${v5};
                 color: ${v1};
+                height: 12rem;
             `}>
             {type === "User" && <UserHeader name={name || login} />}
             {type === "Language" && <LanguageHeader type={type} name={name} />}

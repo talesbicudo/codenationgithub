@@ -16,8 +16,7 @@ const RepositoryBackButton = ({ by, selectedYear, dispatch }) => {
         }
     }, [selectedYear, by, dispatch])
 
-    if (by !== BY.YEARS) return <BackButton onClick={clickHandler} />
-    return null;
+    return <BackButton onClick={clickHandler} />
 }
 
 export default RepositoryBackButton;
