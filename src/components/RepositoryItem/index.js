@@ -29,7 +29,7 @@ const RepositoryItem = ({ name, createdAt, url, description }) => {
             <ExpansionPanelDetails>
                 <Box display="flex" flexDirection="column">
                     <Box>{description}</Box>
-                    <Link href={url}> Página </Link>
+                    <Link target="_blank" href={url}> Página </Link>
                 </Box>
             </ExpansionPanelDetails>
         </ExpansionPanel>
