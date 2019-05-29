@@ -1,7 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
+/** @jsx jsx */
+import {jsx, css} from '@emotion/core';
 
 const useStyles = color => makeStyles({
     avatar: {
@@ -21,7 +22,11 @@ const LanguageAvatar = ({ color, big, name }) => {
     const classes = useStyles(color)();
 
     return (
-        <Avatar className={big ? classes.bigAvatar : classes.avatar}>{[...name].slice(0, 1)}</Avatar>
+        <Avatar className={big ? classes.bigAvatar : classes.avatar}><p css={css`
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        `}>{[...name].slice(0, 1)}</p></Avatar>
     )
 }
 
