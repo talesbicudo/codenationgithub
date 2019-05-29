@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
@@ -11,9 +10,9 @@ const RepositoryItem = ({ name, createdAt, description }) => {
     const ptData = useMemo(() => {
         const data = new Date(createdAt),
             dia = data.getDate().toString(),
-            diaF = (dia.length == 1) ? '0' + dia : dia,
+            diaF = (dia.length === 1) ? '0' + dia : dia,
             mes = (data.getMonth() + 1).toString(),
-            mesF = (mes.length == 1) ? '0' + mes : mes,
+            mesF = (mes.length === 1) ? '0' + mes : mes,
             anoF = data.getFullYear();
         return diaF + "/" + mesF + "/" + anoF;
     }, [createdAt])
