@@ -13,6 +13,7 @@ const fetchProps = `
     createdAt
     description
     id
+    url
 `
 
 export const RepositorySelectedList = ({ name, type, repositoriesData, selectedMonth, selectedYear, itemsPerPage }) => {

@@ -4,9 +4,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-
-const RepositoryItem = ({ name, createdAt, description }) => {
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
+const RepositoryItem = ({ name, createdAt, url, description }) => {
     const ptData = useMemo(() => {
         const data = new Date(createdAt),
             dia = data.getDate().toString(),
@@ -27,7 +27,10 @@ const RepositoryItem = ({ name, createdAt, description }) => {
                 <div> <h3>{name}</h3> <p> Criado em: {ptData}</p></div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                    {description}
+                <Box display="flex" flexDirection="column">
+                    <Box>{description}</Box>
+                    <Link href={url}> Página </Link>
+                </Box>
             </ExpansionPanelDetails>
         </ExpansionPanel>
 
