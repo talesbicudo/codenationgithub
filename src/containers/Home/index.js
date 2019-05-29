@@ -31,8 +31,10 @@ export const Home = ({ dispatch, type = 'User', name = "" }) => {
                     </Box>
                 </Nav>
                 <Profile type={type} name={name} />
-                <RepositoryData type={type} name={name} />
-                <RepositorySelectedList itemsPerPage={5} />
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                    <RepositoryData type={type} name={name} />
+                    <RepositorySelectedList type={type} name={name} itemsPerPage={5} />
+                </Box>
             </Box>
 
 
