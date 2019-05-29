@@ -1,3 +1,5 @@
+import 'jest-dom/extend-expect'
+import 'react-testing-library/cleanup-after-each'
 const localStorageMock = (() => {
     let store = {};
     return {
