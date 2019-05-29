@@ -1,8 +1,18 @@
 import ActionTypes from './ActionTypes';
 import ByTypes from './ByTypes';
-const date = (new Date()).getFullYear() - 5;
+const date = (new Date()).getFullYear();
 
-export default (store = { data: [], search: "", error: null, selectedMonth: null, by: "YEARS", updateLoading: false, loading: true, selectedYear: date, range: { first: date, last: date + 5 } }, action) => {
+export default (store = {
+    data: [],
+     search: "",
+    error: null,
+    selectedMonth: null,
+    by: "YEARS",
+    updateLoading: false,
+    loading: true,
+     selectedYear: date,
+    range: { first: date - 5, last: date }
+}, action) => {
     const { type, payload } = action;
     switch (type) {
         case ActionTypes.SUCCESS:
@@ -65,7 +75,7 @@ export const getSearchQuery = (Profile) => ({ first, last }) => {
     const withLast = last ? `..${gitIsoDate(last)}` : '';
     const withFirst = first ? ` created:${gitIsoDate(first)}` : '';
     const withProfile = lowerType ? `${lowerType}:${lowerName}` : ''
-    return `fork:true is:public ${withProfile}${withFirst}${withLast}`;
+    return `fork:true is:public sort:author-date ${withProfile}${withFirst}${withLast}`;
 }
 
 export const getDateIntervalsQueries = (Profile, RepositoryData) => {
