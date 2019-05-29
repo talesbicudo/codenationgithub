@@ -37,15 +37,20 @@ export const DataView = ({ name, data, type, by, error, selectedMonth, selectedY
     }, [searchs, client, by, dispatch]);
 
 
-    if (repositoryLoading) return <CircularProgress />
+
     if (error) {
         enqueueSnackbar(error);
     }
+    const display = by !== BY.DAYS ?
+        <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={payloadDispatch} data={data} /> :
+        <RepositoryCalendar data={data} />;
 
-    return <Box style={{ height: '50vh' }}>
-        {by !== BY.DAYS && <RepositoryBars by={by} selectedMonth={selectedMonth} dispatch={payloadDispatch} data={data} />}
-        {by === BY.DAYS && <RepositoryCalendar data={data} />}
-        <RepositoryBackButton dispatch={payloadDispatch} by={by} selectedYear={selectedYear} />
+    return <Box height="65vh" display="flex" alignItems="center" justifyContent="center" width="50%" flexGrow="1">
+        {repositoryLoading ?
+            <CircularProgress /> :
+            display
+        }
+        {!repositoryLoading && <RepositoryBackButton by={by} selectedYear={selectedYear} dispatch={payloadDispatch} />}
     </Box>
 }
 

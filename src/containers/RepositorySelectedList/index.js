@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import SearchInput from '../../components/SearchInput';
 import RepositoryList from '../../components/RepositoryList';
 import useRepositoriesWithSearch from '../../QueryHooks/useRepositoriesWithSearch';
@@ -25,9 +24,10 @@ export const RepositorySelectedList = ({ name, type, repositoriesData, selectedM
 
     const dataSearch = useMemo(() => {
         try {
+            const lastInterval = repositoriesData[repositoriesData.length - 1].interval;
             return searchQuery({
                 first: repositoriesData[0].interval.first,
-                last: repositoriesData[repositoriesData.length - 1].interval.last
+                last: lastInterval.last || lastInterval.first
             })
         } catch (e) {
             return searchQuery({ first: null, last: null })
@@ -39,10 +39,9 @@ export const RepositorySelectedList = ({ name, type, repositoriesData, selectedM
     }, [dataSearch, repositoriesData])
 
     return (
-        <Box diplay="flex" height="40rem" justifyContent="flex-start" alignItems="center">
+        <Box diplay="flex" justifyContent="flex-start" height="60vh" width="50%" alignItems="center">
             <SearchInput onSubmit={submitHandler} initialValue={search} />
-            {loading ?
-                <CircularProgress /> :
+            {!loading &&
                 <RepositoryList repositories={repositories} />
             }
         </Box>
