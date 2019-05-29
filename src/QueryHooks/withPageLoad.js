@@ -1,7 +1,7 @@
 
-const withPageLoad = ({ fetchMoreHandler, getPageInfo, ...queryProps }) => {
+const withPageLoad = ({ fetchMoreHandler, getPageInfo, }, queryProps) => {
     const { fetchMore, data, loading, error, variables } = queryProps;
-    if (!loading || !error) return queryProps;
+    if (loading || error || !data) return queryProps;
     const pageInfo = getPageInfo(data);
     const hasNextPage = pageInfo.hasNextPage;
     return {
