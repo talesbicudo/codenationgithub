@@ -6,17 +6,13 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
+import { formatDateToPtBr } from '../../helpers';
 
-const RepositoryItem = ({ name="Undefined", createdAt="2014-01-01", url="https://github.com", description="Empty Description" }) => {
-    const ptData = useMemo(() => {
-        const data = new Date(createdAt),
-            dia = data.getDate().toString(),
-            diaF = (dia.length === 1) ? '0' + dia : dia,
-            mes = (data.getMonth() + 1).toString(),
-            mesF = (mes.length === 1) ? '0' + mes : mes,
-            anoF = data.getFullYear();
-        return diaF + "/" + mesF + "/" + anoF;
-    }, [createdAt])
+const RepositoryItem = ({ name = "Undefined", createdAt = "2014-01-01", url = "https://github.com", description = "Empty Description" }) => {
+
+    const ptData = useMemo(() =>
+        formatDateToPtBr(createdAt)
+        , [createdAt])
 
     return (
         <ExpansionPanel>
