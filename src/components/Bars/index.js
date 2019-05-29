@@ -56,7 +56,7 @@ const Bars = ({ legend = "Data", delay = 200, data = [{ "Total": 0, item: "item"
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legend: "Repositórios",
+                    legend: "Repositórios Criados",
                     legendPosition: 'middle',
                     legendOffset: 32,
                     format: v => fnum(v)
