@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useMemo } from 'react';
+import React, { useState, useContext, useRef, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import SearchInput from '../../components/SearchInput';
@@ -6,6 +6,7 @@ import RepositoryList from '../../components/RepositoryList';
 import useRepositoriesWithSearch from '../../QueryHooks/useRepositoriesWithSearch';
 import { getSearchQuery } from '../../redux/RepositoryData/reducer';
 import Viewer from '../../Contexts/Viewer';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const fetchProps = `
     name
@@ -16,9 +17,11 @@ const fetchProps = `
 
 export const RepositorySelectedList = ({ name, type, repositoriesData, selectedMonth, selectedYear, itemsPerPage }) => {
     const { login } = useContext(Viewer);
-    const [search, setSearch] = useState('test');
+    const [search, setSearch] = useState('');
     const submitHandler = value => setSearch(value);
     const { loading, repositories } = useRepositoriesWithSearch({ fetchProps, itemsPerPage, search })
+
+    const isFirstRun = useRef(true);
 
     const searchQuery = getSearchQuery({ name: name || login, type });
 
@@ -35,14 +38,22 @@ export const RepositorySelectedList = ({ name, type, repositoriesData, selectedM
     }, [repositoriesData, searchQuery])
 
     useEffect(() => {
-        setSearch(dataSearch);
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+        } else {
+            setSearch(dataSearch);
+        }
     }, [dataSearch, repositoriesData])
 
     return (
-        <Box diplay="flex" justifyContent="flex-start" height="60vh" width="50%" alignItems="center">
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="start">
+            <h2>Detalhes</h2>
             <SearchInput onSubmit={submitHandler} initialValue={search} />
-            {!loading &&
-                <RepositoryList repositories={repositories} />
+            {loading ?
+                !isFirstRun.current && <CircularProgress style={{ marginTop: '25%' }} /> :
+                <Box marginTop={"2rem"}>
+                    <RepositoryList repositories={repositories} />
+                </Box>
             }
         </Box>
     )
