@@ -10,7 +10,7 @@ export const callSearchs = (searchs, client, by) => ({
     payload: { searchs, client, by }
 })
 
-export const updateInterval = (first, last, client) => ({
+export const updateInterval = ([first, last]) => ({
     type: ActionTypes.UPDATE,
-    payload: { first, last, client }
+    payload: { range: { first, last } }
 })
