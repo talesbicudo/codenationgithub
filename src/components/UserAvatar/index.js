@@ -13,20 +13,22 @@ const useStyles = makeStyles({
         height: '10rem',
         width: '10rem'
     }
-    
+
 });
 
-const LanguageAvatar = ({ name, big, avatarUrl }) => {
+const UserAvatar = ({ name, big, avatarUrl }) => {
     const classes = useStyles();
     return (
-        <Avatar className={`${big ? classes.bigAvatar : ''} ${classes.avatar}`} alt={name} src={avatarUrl} />
+        <div data-testid="UserAvatarContainer">
+            <Avatar className={`${big ? classes.bigAvatar : ''} ${classes.avatar}`} alt={name} src={avatarUrl} />
+        </div>
     )
 }
 
-LanguageAvatar.propTypes = {
+UserAvatar.propTypes = {
     name: PropTypes.string,
     big: PropTypes.bool,
     avatarUrl: PropTypes.string
 }
 
-export default LanguageAvatar;
+export default UserAvatar;

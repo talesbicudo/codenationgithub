@@ -6,7 +6,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-const RepositoryItem = ({ name, createdAt, url, description }) => {
+
+const RepositoryItem = ({ name="Undefined", createdAt="2014-01-01", url="https://github.com", description="Empty Description" }) => {
     const ptData = useMemo(() => {
         const data = new Date(createdAt),
             dia = data.getDate().toString(),

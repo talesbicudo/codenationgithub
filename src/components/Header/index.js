@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 
-const Header = ({ avatar, name, totalCount }) => (
+const Header = ({ avatar = "avatar", name = "user", totalCount=0 }) => (
     <Box display="flex" alignItems="center" justifyContent="flex-start">
         <Box className="header__avatar">
             {avatar}
@@ -13,11 +12,5 @@ const Header = ({ avatar, name, totalCount }) => (
         </Box>
     </Box>
 )
-
-Header.propTypes = {
-    avatar: PropTypes.object,
-    name: PropTypes.string,
-    totalCount: PropTypes.number
-}
 
 export default Header;

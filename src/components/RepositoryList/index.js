@@ -2,9 +2,9 @@ import React from 'react';
 import RepositoryItem from '../RepositoryItem';
 
 
-function SimpleExpansionPanel({ repositories }) {
+function SimpleExpansionPanel({ repositories =[] }) {
     const items = repositories.map((repository, i) =>
-        <RepositoryItem key={repository.id+i} {...repository} />
+        <RepositoryItem data-testid="repositoryItem" key={repository.id+i} {...repository} />
     );
 
     return (

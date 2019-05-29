@@ -31,9 +31,9 @@ const SearchList = ({ items, createLink, loading, onLoaded }) => {
         `}>
             {loading && <CircularProgress />}
             <List style={itemsStyle}>
-                {items.map((item) =>
+                {items.map((item, i) =>
                     <SeachListItem onLoaded={() => loadingItemsHandler.next()}
-                        key={item.id} createLink={innerCreateLink} {...item} />
+                        key={item.id +i} createLink={innerCreateLink} {...item} />
                 )}
             </List>
         </Box>

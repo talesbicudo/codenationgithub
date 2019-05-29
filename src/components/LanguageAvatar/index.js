@@ -7,22 +7,21 @@ import {jsx, css} from '@emotion/core';
 const useStyles = color => makeStyles({
     avatar: {
         margin: '1rem',
-        backgroundColor: color
     },
     bigAvatar: {
         margin: '1rem',
-        backgroundColor: color,
         width: '10rem',
         height: '10rem',
         fontSize: '8rem'
     },
 });
 
-const LanguageAvatar = ({ color, big, name }) => {
-    const classes = useStyles(color)();
+const LanguageAvatar = ({ color="#ffffff", big=false, name="Undefined Language" }) => {
+
+    const classes = useStyles()();
 
     return (
-        <Avatar className={big ? classes.bigAvatar : classes.avatar}><p css={css`
+        <Avatar data-testid="LangAvatar" style={{backgroundColor: color}} className={big ? classes.bigAvatar : classes.avatar}><p css={css`
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
