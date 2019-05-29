@@ -6,7 +6,7 @@ import BY from '../../redux/RepositoryData/ByTypes';
 const legends = { [BY.MONTHS]: "Mês", [BY.YEARS]: "Ano" }
 const months = ["jan.", "fev.", "mar.", "abr.", "maio", "jun.", "jul.", "ago.", "set.", "out.", "nov.", "dez"];
 
-const RepositoryBars = ({ data, by, dispatch, range }) => {
+const RepositoryBars = ({ data, by, dispatch, range, updateLoading}) => {
     const usableData = useMemo(() => {
         if (by === BY.MONTHS) {
             return data.map(({ total }, i) => ({ index: i, item: months[i], Total: +total }))
@@ -29,6 +29,7 @@ const RepositoryBars = ({ data, by, dispatch, range }) => {
     return (
         <Box display="flex" alignItems="center" height="65vh" width="100%">
             <Bars data={usableData} onClick={clickHandler} legend={legends[by]} />
+            {updateLoading && <p>Modfificando anos...</p>}
         </Box>
     )
 }

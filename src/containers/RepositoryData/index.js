@@ -13,7 +13,7 @@ import RepositoryCalendar from './RepositoryCalendar';
 import { useSnackbar } from 'notistack';
 import dispatchHandler from './dispatchHandler';
 import YearSlider from './YearSlider';
-export const DataView = ({ name, data, type, by, error, selectedMonth, selectedYear, repositoryLoading, dispatch, range }) => {
+export const DataView = ({ name, data, type, by, error, selectedMonth, updateLoading, selectedYear, repositoryLoading, dispatch, range }) => {
 
     const { login } = useContext(Viewer);
     const { enqueueSnackbar } = useSnackbar();
@@ -60,7 +60,7 @@ export const DataView = ({ name, data, type, by, error, selectedMonth, selectedY
         {!repositoryLoading && (
             <Box flexGrow="1" width="100%" display="flex">
                 {by === BY.YEARS && <YearSlider dispatch={intervalDispatch} range={range} />}
-                {by !== BY.YEARS && <RepositoryBackButton by={by} selectedYear={selectedYear} dispatch={payloadDispatch} />}
+                {by !== BY.YEARS && <RepositoryBackButton by={by} selectedYear={selectedYear} updateLoading={updateLoading} dispatch={payloadDispatch} />}
             </Box>)}
     </Box>
 }

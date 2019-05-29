@@ -1,7 +1,6 @@
 import React, { useState, useContext, useRef, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import Box from '@material-ui/core/Box';
-import SearchInput from '../../components/SearchInput';
 import RepositoryList from '../../components/RepositoryList';
 import useRepositoriesWithSearch from '../../QueryHooks/useRepositoriesWithSearch';
 import withPageLoad from '../../QueryHooks/withPageLoad';
@@ -37,7 +36,6 @@ const fetchMoreHandler = (prev, next) => {
 export const RepositorySelectedList = ({ name, type, repositoriesData, selectedMonth, selectedYear, itemsPerPage }) => {
     const { login } = useContext(Viewer);
     const [search, setSearch] = useState('');
-    const submitHandler = value => setSearch(value);
 
     const { loading, repositories, loadMore, hasNextPage } =
         withPageLoad({ getPageInfo, fetchMoreHandler }, useRepositoriesWithSearch({ fetchProps, itemsPerPage, search }));
@@ -54,7 +52,7 @@ export const RepositorySelectedList = ({ name, type, repositoriesData, selectedM
                 last: lastInterval.last || lastInterval.first
             })
         } catch (e) {
-            return searchQuery({ first: null, last: null })
+            return searchQuery({ first: new Date(), last: null })
         }
     }, [repositoriesData, searchQuery])
 
@@ -69,7 +67,7 @@ export const RepositorySelectedList = ({ name, type, repositoriesData, selectedM
     return (
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="start">
             <h2>Detalhes</h2>
-            <SearchInput onSubmit={submitHandler} initialValue={search} />
+           
             {loading ?
                 !isFirstRun.current && <CircularProgress style={{ marginTop: '25%' }} /> :
                 <Box display="flex" justifyContent="space-around"

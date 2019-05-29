@@ -11,7 +11,7 @@ export default (store = {
     updateLoading: false,
     loading: true,
      selectedYear: date,
-    range: { first: date - 5, last: date }
+    range: { first: date - 2, last: date }
 }, action) => {
     const { type, payload } = action;
     switch (type) {
