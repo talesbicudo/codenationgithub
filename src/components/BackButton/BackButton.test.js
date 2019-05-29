@@ -4,6 +4,6 @@ import { render } from 'react-testing-library';
 describe('Back buttonj', () => {
     it('renders', () => {
         const { getByText } = render(<BackButton/>);
-        expect(getByText('Voltar')).toBeTruthy()
+        expect(getByText('Voltar')).toHaveTextContent('Voltar')
     })
 })
