@@ -3,7 +3,7 @@ import { useSnackbar } from 'notistack';
 
 const useCheckedQuery =
     (query, mapDataToProps = data => data, queryArgs) => {
-        const queryProps = useQuery(query, { ...queryArgs, notifyOnNetworkStatusChange: true });
+        const queryProps = useQuery(query, { ...queryArgs});
         const { enqueueSnackbar } = useSnackbar();
         const { loading, error, data, networkStatus } = queryProps;
         if (loading ||
