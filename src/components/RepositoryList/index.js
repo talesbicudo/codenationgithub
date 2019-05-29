@@ -1,15 +1,14 @@
 import React from 'react';
-
 import RepositoryItem from '../RepositoryItem';
 
 
 function SimpleExpansionPanel({ repositories }) {
-    const items = repositories.map(repository =>
-        <RepositoryItem key={repository.id} {...repository} />
+    const items = repositories.map((repository, i) =>
+        <RepositoryItem key={repository.id+i} {...repository} />
     );
 
     return (
-        <div>
+        <div style={{overflowY: "scroll", position: "relative", width: "100%", height: '50vh'}}>
             {items}
         </div>
     );
