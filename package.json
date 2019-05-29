@@ -18,6 +18,7 @@
     "express": "^4.17.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
+    "jest-dom": "^3.4.0",
     "notistack": "^0.8.5",
     "react": "^16.8.6",
     "react-apollo-hooks": "^0.4.5",
