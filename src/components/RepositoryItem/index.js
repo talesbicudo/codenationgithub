@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -8,6 +8,16 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 const RepositoryItem = ({ name, createdAt, description }) => {
+    const ptData = useMemo(() => {
+        const data = new Date(createdAt),
+            dia = data.getDate().toString(),
+            diaF = (dia.length == 1) ? '0' + dia : dia,
+            mes = (data.getMonth() + 1).toString(),
+            mesF = (mes.length == 1) ? '0' + mes : mes,
+            anoF = data.getFullYear();
+        return diaF + "/" + mesF + "/" + anoF;
+    }, [createdAt])
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary
@@ -15,12 +25,10 @@ const RepositoryItem = ({ name, createdAt, description }) => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
             >
-                <Typography >{name} {createdAt}</Typography>
+                <div> <h3>{name}</h3> <p> Criado em: {ptData}</p></div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Typography>
-                   {description} 
-          </Typography>
+                    {description}
             </ExpansionPanelDetails>
         </ExpansionPanel>
 
